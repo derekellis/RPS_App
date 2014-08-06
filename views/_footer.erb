@@ -1,0 +1,19 @@
+  <footer>
+    <div class="row">
+      <center>Made with <span class="entypo-heart-empty"></span> by the best team at MakerSquare</center>
+    </div>
+  </footer>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation/foundation.tooltip.min.js" type="text/javascript"></script>
+    <script src="http://fb.me/react-0.11.1.js"></script>
+    <script>
+      $(function(){
+        $(document).foundation();    
+      })
+    </script>
+    <%= "<script src=\"/#{@home}\"></script>" if @home %>
+    <%= "<script src=\"/#{@js}\"></script>" if @js %>
+    <%= "<script src=\"/#{@audio}\"></script>" if @audio %>
+  </body>
+</html>
