@@ -1,0 +1,12 @@
+$(document).ready(function(){
+  $('#signin').hide();
+  $('#signup').hide();
+  $("a.signin").click(function(){
+    $('#signup').hide('slow');
+    $('#signin').show('slow');
+  });
+  $("a.signup").click(function(){
+    $('#signin').hide('slow');
+    $('#signup').show('slow');
+  });
+});

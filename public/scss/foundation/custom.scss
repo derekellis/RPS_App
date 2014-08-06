@@ -1,32 +1,172 @@
+/*************
+FONTS
+*************/
+$highlighter: #b70817;
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 
-/* maki */
+/* entypo */
 [class*="entypo-"]:before {
   font-family: 'entypo', sans-serif;
 }
+.light {
+  font-weight: 200;
+}
+a, strong {
+  color:$highlighter;
+}
+.entypo-paper-plane {
+  font-size: 1.5rem;
+  color: $highlighter;
+}
+.centered {
+  margin: 0 auto;
+  float: none;
+}
+/*************
+Main Content
+************/
+#main-content {
+  background: url('/images/grunge_wall.png');
+  padding: 2em 0;
+}
+/************
+PLAY
+************/
+.play div {
+  text-align: center;
+}
+.play h3 {
+  margin-bottom: 2em;
+}
+/************
+MATCHES
+************/
+.match-table{
+  padding-bottom: 2em;
+}
 
 /************
-DASHBOARD
+INPUT
 ************/
-#dashboard div div{
-  background: url('../images/light_grey.png');
-  margin: 1em 0;
-  text-align: center;
+input {
+  border: none;
+  border-bottom: 3px solid #333!important;
+}
+
+/************
+FOOTER
+************/
+footer {
+  background: #b70817;
+  color: white;
   padding: 1em 0;
-  -webkit-transition: .2s all ease-in-out;
-  -moz-transition: .2s all ease-in-out;
-  transition: .2s all ease-in-out;
 }
-#dashboard div div:hover{
-  opacity: .6;
+/************
+PUSH MENU
+************/
+$darker-menu: scale-color($highlighter, $lightness: -14%);
+.cbp-spmenu {
+  background: $highlighter;
+  position: fixed;
+
 }
-/**********
-DISPLAY CASE
-***********/
-.display-case {
-  max-height: 250px;
-  overflow: auto;
+
+.cbp-spmenu h3 {
+  color: #ccc;
+  font-size: 1.9em;
+  line-height: $topbar-height;
+  padding: 0 1em;
+  margin: 0;
+  font-weight: 300;
+  background: $darker-menu;
 }
-#bakery .display div { width: 200px; height: 200px; float: left; }
-#bakery .display .cookie { background: url("http://i.imgur.com/Yxq78qn.jpg"); }
-#bakery .display .cupcake { background: url('../images/cupcake.png');}
+
+.cbp-spmenu a {
+  display: block;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+.cbp-spmenu a:hover {
+  background: $darker-menu;
+}
+.cbp-spmenu input{
+  border-bottom: 3px solid #fff!important;
+  margin: 0 auto;
+  width: 90%;
+}
+.cbp-spmenu button{
+  border: 3px solid #fff;
+  color: white!important;
+  width: 90%;
+  margin: 1em auto;
+  display: inherit;
+}
+.cbp-spmenu a:active {
+  background: $darker-menu;
+  color: $highlighter;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+  width: 240px;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.cbp-spmenu-vertical a {
+  border-bottom: 1px solid #fff;
+  padding: 1em;
+}
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+  left: -240px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+  left: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+}
+
+.cbp-spmenu-push-toright {
+  left: 240px;
+}
+#showLeftPush{
+  margin-top: 1em;
+}
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* Example media queries */
+@media screen and (max-height: 26.375em){
+
+  .cbp-spmenu-vertical {
+    font-size: 90%;
+    width: 190px;
+  }
+
+  .cbp-spmenu-left,
+  .cbp-spmenu-push-toleft {
+    left: -190px;
+  }
+  .cbp-spmenu-push-toright {
+    left: 190px;
+  }
+}

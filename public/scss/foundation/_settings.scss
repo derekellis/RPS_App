@@ -41,9 +41,9 @@
 // Global
 
 // We use these to control various global styles
-$body-bg: url('../images/congruent_pentagon.png');
+// $body-bg: url('../images/congruent_pentagon.png');
 // $body-font-color: #222;
-$body-font-family: "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Raleway", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -56,7 +56,7 @@ $body-font-family: "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
 // $default-float: left;
 
 // We use these as default colors throughout
-$primary-color: #777;
+$primary-color: #292929;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -120,8 +120,8 @@ $primary-color: #777;
 // $include-html-type-classes: $include-html-classes;
 
 // We use these to control header font styles
-$header-font-family: "Open Sans", sans-serif;
-$header-font-weight: lighter;
+$header-font-family: "Raleway", sans-serif;
+$header-font-weight: 200;
 // $header-font-style: normal;
 //$header-font-color: #000;
 // $header-line-height: 1.4;
@@ -350,7 +350,7 @@ $h1-font-size: rem-calc(64);
 
 // We use these to control button text styles.
 // $button-font-family: $body-font-family;
-// $button-font-color: #fff;
+$button-font-color: $primary-color;
 // $button-font-color-alt: #333;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
@@ -363,10 +363,10 @@ $h1-font-size: rem-calc(64);
 // $button-function-factor: -20%;
 
 // We use these to control button border styles.
-// $button-border-width: 0px;
+$button-border-width: 3px;
 // $button-border-style: solid;
-// $button-bg: $primary-color;
-// $button-border-color: scale-color($bg, $lightness: $button-function-factor);
+$button-bg: transparent;
+$button-border-color: #333;
 
 // We use this to set the default radius used throughout the core.
 // $button-radius: $global-radius;
@@ -524,17 +524,17 @@ $h1-font-size: rem-calc(64);
 // $form-label-bottom-margin: 0;
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
-// $input-font-size: rem-calc(14);
-// $input-bg-color: #fff;
-// $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
-// $input-border-color: scale-color(#fff, $lightness: -20%);
-// $input-focus-border-color: scale-color(#fff, $lightness: -40%);
-// $input-border-style: solid;
-// $input-border-width: 1px;
-// $input-border-radius: $global-radius;
+$input-font-size: rem-calc(20);
+$input-bg-color: transparent;
+$input-focus-bg-color: transparent;
+$input-border-color: transparent;
+$input-focus-border-color: transparent;
+$input-border-style: none;
+$input-border-width: 0;
+$input-border-radius: 0;
 // $input-disabled-bg: #ddd;
-// $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-// $input-include-glowing-effect: true;
+$input-box-shadow: none;
+$input-include-glowing-effect: false;
 
 // We use these to style the fieldset border and spacing.
 // $fieldset-border-style: solid;
@@ -1157,10 +1157,10 @@ $h1-font-size: rem-calc(64);
 
 // $include-html-tooltip-classes: $include-html-classes;
 
-// $has-tip-border-bottom: dotted 1px #ccc;
+$has-tip-border-bottom: dotted 0px #ccc;
 // $has-tip-font-weight: $font-weight-bold;
 // $has-tip-font-color: #333;
-// $has-tip-border-bottom-hover: dotted 1px scale-color($primary-color, $lightness: -55%);
+$has-tip-border-bottom-hover: dotted 0px scale-color($primary-color, $lightness: -55%);
 // $has-tip-font-color-hover: $primary-color;
 // $has-tip-cursor-type: help;
 
@@ -1185,19 +1185,19 @@ $h1-font-size: rem-calc(64);
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: rgba(255,255,255,.7);
+$topbar-bg-color: #fff;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-// $topbar-height: 45px;
-// $topbar-margin-bottom: 0;
+$topbar-height: 90px;
+// $topbar-margin-bottom: 10px;
 
 // Controlling the styles for the title in the top bar
-// $topbar-title-weight: $font-weight-normal;
-// $topbar-title-font-size: rem-calc(17);
+$topbar-title-weight: 200;
+$topbar-title-font-size: rem-calc(35);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: #333;
+$topbar-dropdown-bg: #fff;
 // $topbar-dropdown-link-color: #fff;
 // $topbar-dropdown-link-bg: #333;
 // $topbar-dropdown-link-weight: $font-weight-normal;
@@ -1207,16 +1207,16 @@ $topbar-bg-color: rgba(255,255,255,.7);
 
 // Set the link colors and styles for top-level nav
 $topbar-link-color: $primary-color;
-// $topbar-link-color-hover: #fff;
+$topbar-link-color-hover: #ccc;
 // $topbar-link-color-active: #fff;
 // $topbar-link-color-active-hover: #fff;
 // $topbar-link-weight: $font-weight-normal;
-// $topbar-link-font-size: rem-calc(13);
+$topbar-link-font-size: rem-calc(13);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
-// $topbar-link-bg-color-hover: #272727;
-// $topbar-link-bg-hover: #272727;
-// $topbar-link-bg-active: $primary-color;
+$topbar-link-bg-color-hover: #fff;
+$topbar-link-bg-hover: #fff;
+$topbar-link-bg-active: #fff;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
