@@ -1,0 +1,32 @@
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+/* maki */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+/************
+DASHBOARD
+************/
+#dashboard div div{
+  background: url('../images/light_grey.png');
+  margin: 1em 0;
+  text-align: center;
+  padding: 1em 0;
+  -webkit-transition: .2s all ease-in-out;
+  -moz-transition: .2s all ease-in-out;
+  transition: .2s all ease-in-out;
+}
+#dashboard div div:hover{
+  opacity: .6;
+}
+/**********
+DISPLAY CASE
+***********/
+.display-case {
+  max-height: 250px;
+  overflow: auto;
+}
+#bakery .display div { width: 200px; height: 200px; float: left; }
+#bakery .display .cookie { background: url("http://i.imgur.com/Yxq78qn.jpg"); }
+#bakery .display .cupcake { background: url('../images/cupcake.png');}
