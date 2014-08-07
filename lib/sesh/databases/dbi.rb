@@ -123,10 +123,10 @@ module RPS
       @db.exec(update)
     end
 
-    def create_player_match(challenger)
+    def create_player_match(player1, player2)
       create = <<-SQL
-      INSERT INTO matches(challenger)
-      VALUES (#{challenger})
+      INSERT INTO matches(player1, player2)
+      VALUES (#{player1}, #{player2})
       RETURNING id;
       SQL
       @db.exec(create)
