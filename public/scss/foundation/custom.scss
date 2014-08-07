@@ -48,7 +48,27 @@ MATCHES
   padding-bottom: 2em;
   text-align: center;
 }
-
+.match-table table {
+  width: 100%;
+}
+.match-table table tr:nth-child(odd){
+  background: #FCF1EB;
+}
+.match-table table tr:nth-child(even){
+  background: #98918B;
+}
+.match-table table tr:first-child{
+  background: #fff!important;
+}
+.tabs.vertical {
+  margin-top: 4rem;
+}
+.tabs.vertical a {
+  padding: .45rem 2rem!important;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 80%;
+}
 /************
 INPUT
 ************/

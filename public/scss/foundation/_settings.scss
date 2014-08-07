@@ -57,6 +57,7 @@ $body-font-family: "Raleway", "Helvetica", Helvetica, Arial, sans-serif;
 
 // We use these as default colors throughout
 $primary-color: #292929;
+$highlighter: #b70817;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -1121,11 +1122,11 @@ $input-include-glowing-effect: false;
 // $include-html-tabs-classes: $include-html-classes;
 
 // $tabs-navigation-padding: rem-calc(16);
-// $tabs-navigation-bg-color: #efefef  ;
-// $tabs-navigation-active-bg-color: #fff;
-// $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
-// $tabs-navigation-font-color: #222;
-// $tabs-navigation-active-font-color: $tabs-navigation-font-color;
+$tabs-navigation-bg-color: none ;
+$tabs-navigation-active-bg-color: $highlighter;
+$tabs-navigation-hover-bg-color: none;
+$tabs-navigation-font-color: $highlighter;
+$tabs-navigation-active-font-color: #fff;
 // $tabs-navigation-font-size: rem-calc(16);
 // $tabs-navigation-font-family: $body-font-family;
 

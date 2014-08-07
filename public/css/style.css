@@ -5194,18 +5194,18 @@ blockquote p {
     /* line 40, ../scss/foundation/components/_tabs.scss */
     .tabs dd > a, .tabs .tab-title > a {
       display: block;
-      background: #efefef;
-      color: #222222;
+      background: none;
+      color: #b70817;
       padding: 1rem 2rem;
       font-family: "Raleway", "Helvetica", Helvetica, Arial, sans-serif;
       font-size: 1rem; }
       /* line 47, ../scss/foundation/components/_tabs.scss */
       .tabs dd > a:hover, .tabs .tab-title > a:hover {
-        background: #e1e1e1; }
+        background: none; }
     /* line 49, ../scss/foundation/components/_tabs.scss */
     .tabs dd.active a, .tabs .tab-title.active a {
-      background: white;
-      color: #222222; }
+      background: #b70817;
+      color: white; }
   /* line 53, ../scss/foundation/components/_tabs.scss */
   .tabs.radius dd:first-child a, .tabs.radius .tab:first-child a {
     border-bottom-left-radius: 3px;
@@ -6711,10 +6711,37 @@ MATCHES
   padding-bottom: 2em;
   text-align: center; }
 
+/* line 51, ../scss/foundation/custom.scss */
+.match-table table {
+  width: 100%; }
+
+/* line 54, ../scss/foundation/custom.scss */
+.match-table table tr:nth-child(odd) {
+  background: #FCF1EB; }
+
+/* line 57, ../scss/foundation/custom.scss */
+.match-table table tr:nth-child(even) {
+  background: #98918B; }
+
+/* line 60, ../scss/foundation/custom.scss */
+.match-table table tr:first-child {
+  background: white !important; }
+
+/* line 63, ../scss/foundation/custom.scss */
+.tabs.vertical {
+  margin-top: 4rem; }
+
+/* line 66, ../scss/foundation/custom.scss */
+.tabs.vertical a {
+  padding: 0.45rem 2rem !important;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 80%; }
+
 /************
 INPUT
 ************/
-/* line 55, ../scss/foundation/custom.scss */
+/* line 75, ../scss/foundation/custom.scss */
 input {
   border: none;
   border-bottom: 3px solid #333333 !important; }
@@ -6722,7 +6749,7 @@ input {
 /************
 FOOTER
 ************/
-/* line 63, ../scss/foundation/custom.scss */
+/* line 83, ../scss/foundation/custom.scss */
 footer {
   background: #b70817;
   color: white;
@@ -6731,13 +6758,13 @@ footer {
 /************
 PUSH MENU
 ************/
-/* line 72, ../scss/foundation/custom.scss */
+/* line 92, ../scss/foundation/custom.scss */
 .cbp-spmenu {
   background: #b70817;
   text-align: center;
   position: fixed; }
 
-/* line 78, ../scss/foundation/custom.scss */
+/* line 98, ../scss/foundation/custom.scss */
 .cbp-spmenu h3 {
   color: #ccc;
   font-size: 1.9em;
@@ -6746,24 +6773,24 @@ PUSH MENU
   font-weight: 300;
   background: #9d0714; }
 
-/* line 87, ../scss/foundation/custom.scss */
+/* line 107, ../scss/foundation/custom.scss */
 .cbp-spmenu a {
   display: block;
   color: #fff;
   font-size: 1.1em;
   font-weight: 300; }
 
-/* line 94, ../scss/foundation/custom.scss */
+/* line 114, ../scss/foundation/custom.scss */
 .cbp-spmenu a:hover {
   background: #9d0714; }
 
-/* line 97, ../scss/foundation/custom.scss */
+/* line 117, ../scss/foundation/custom.scss */
 .cbp-spmenu input {
   border-bottom: 3px solid white !important;
   margin: 0 auto;
   width: 90%; }
 
-/* line 102, ../scss/foundation/custom.scss */
+/* line 122, ../scss/foundation/custom.scss */
 .cbp-spmenu button {
   border: 3px solid #fff;
   color: white !important;
@@ -6771,13 +6798,13 @@ PUSH MENU
   margin: 1em auto;
   display: inherit; }
 
-/* line 109, ../scss/foundation/custom.scss */
+/* line 129, ../scss/foundation/custom.scss */
 .cbp-spmenu a:active {
   background: #9d0714;
   color: #b70817; }
 
 /* Orientation */
-/* line 114, ../scss/foundation/custom.scss */
+/* line 134, ../scss/foundation/custom.scss */
 .cbp-spmenu-horizontal {
   width: 100%;
   height: 150px;
@@ -6785,40 +6812,40 @@ PUSH MENU
   z-index: 1000;
   overflow: hidden; }
 
-/* line 122, ../scss/foundation/custom.scss */
+/* line 142, ../scss/foundation/custom.scss */
 .cbp-spmenu-horizontal h3 {
   height: 100%;
   width: 20%;
   float: left; }
 
-/* line 128, ../scss/foundation/custom.scss */
+/* line 148, ../scss/foundation/custom.scss */
 .cbp-spmenu-horizontal form {
   float: left;
   width: 70%;
   padding: 0.8em; }
 
 /* Horizontal menu that slides from the top or bottom */
-/* line 135, ../scss/foundation/custom.scss */
+/* line 155, ../scss/foundation/custom.scss */
 .cbp-spmenu-bottom {
   bottom: -150px; }
 
-/* line 139, ../scss/foundation/custom.scss */
+/* line 159, ../scss/foundation/custom.scss */
 .cbp-spmenu-bottom.cbp-spmenu-open {
   bottom: 0px; }
 
 /* Push classes applied to the body */
-/* line 144, ../scss/foundation/custom.scss */
+/* line 164, ../scss/foundation/custom.scss */
 .cbp-spmenu-push {
   overflow-x: hidden;
   position: relative;
   left: 0; }
 
-/* line 150, ../scss/foundation/custom.scss */
+/* line 170, ../scss/foundation/custom.scss */
 #showBottom {
   margin-top: 1em; }
 
 /* Transitions */
-/* line 155, ../scss/foundation/custom.scss */
+/* line 175, ../scss/foundation/custom.scss */
 .cbp-spmenu,
 .cbp-spmenu-push {
   -webkit-transition: all 0.3s ease;
@@ -6827,6 +6854,6 @@ PUSH MENU
 
 /* Example media queries */
 @media screen and (max-height: 26.375em) {
-  /* line 165, ../scss/foundation/custom.scss */
+  /* line 185, ../scss/foundation/custom.scss */
   .cbp-spmenu {
     font-size: 90%; } }
