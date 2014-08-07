@@ -14,7 +14,7 @@ set :session_secret, 'super secret'
 get '/' do
   @home = 'js/home.js'
   if session['sesh_example']
-    @@user = Sesh.dbi.get_user_by_username(session['sesh_example'])
+    @@user = RPS.dbi.get_player_by_username(session['sesh_example'])
   end
   erb :index
 end

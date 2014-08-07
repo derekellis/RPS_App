@@ -41,6 +41,13 @@ module RPS
 
     end
 
+    def persist_user(user)
+      @db.exec(%q[
+        INSERT INTO players (username, password)
+        VALUES ($1, $2);
+      ], [user.username, user.password_digest])
+    end
+
     def create_player(username, password)
       create = <<-SQL
       INSERT INTO players (username, password)
@@ -55,7 +62,7 @@ module RPS
         SELECT * FROM players WHERE username = '#{username}';
       ])
 
-      if result.count > 1
+      if result.count > 0
         true
       else
         false
@@ -67,6 +74,10 @@ module RPS
       SELECT * FROM players WHERE id = id;
       SQL
       @db.exec(get)
+    end
+
+    def build_user(data)
+      RPS::User.new(data['username'], data['password_digest'])
     end
 
     def get_player_by_username(username)
