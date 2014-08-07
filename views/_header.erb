@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Rocks, Paper, Scissors</title>
+      <title>Rock, Paper, Scissors</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="css/style.css">
@@ -16,7 +16,7 @@
     <nav class="top-bar" data-topbar>
       <ul class="title-area">
         <li class="name">
-          <h1><a href="/">ROCKS<strong>PAPER</strong>SCISSORS</a></h1>
+          <h1><a href="/">ROCK<strong>PAPER</strong>SCISSORS</a></h1>
         </li>
         <li class="toggle-topbar menu-icon">
           <a href="#"><span>Menu</span></a>
@@ -24,7 +24,12 @@
       </ul>
       <section class="top-bar-section">
         <ul class="right">
-          <li><a href="/matches" action="/" method="get">You're signed in as Player 1</a></li>
+          <li>
+            <% if @user %>
+              <a href="/matches" action="/" method="get">You're signed in as Player 1</a>
+            <% else %>
+              <a href="/">You are not logged in</a>
+            <% end %></li>
         </ul>
         <div class="icon-bar one-up right">
           <a href="/signout" action="/signout" method="get">

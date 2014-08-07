@@ -1,13 +1,4 @@
 <div id="main-content">
-  <div class="cbp-spmenu-push cbp-spmenu-push-toright" id="cbp-spmenu-push">
-    <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-      <h3>Invite</h3>
-      <form>
-        <input type="text" placeholder="user to invite" />
-        <button class="round" type="submit" name="submit">Send Invitation</button>
-      </form>
-    </nav>
-  </div>
   <div class="row">
     <div class="large-6 columns match-table">
       <h2>Active Matches</h2>
@@ -82,7 +73,16 @@
       <% else %>
         <strong>You don't have any pending matches.</strong>
       <% end %>
-      <button id="showLeftPush" class="round">Invite a friend to a new game</button>
+      <button id="showBottom" class="round">Invite a friend to a new game</button>
     </div>
   </div>
+</div>
+<div class="cbp-spmenu-push">
+  <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom" id="cbp-spmenu-s4">
+    <h3>Invite</h3>
+    <form>
+      <input type="text" placeholder="user to invite" />
+      <button class="round" type="submit" name="submit">Send Invitation</button>
+    </form>
+  </nav>
 </div>
