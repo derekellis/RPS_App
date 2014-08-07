@@ -1,79 +1,85 @@
 <div id="main-content">
-  <div class="row">
-    <div class="large-6 columns match-table">
-      <h2>Active Matches</h2>
-      <% if @matches %>
-        <table>
-          <tr>
-            <th>Match Name</th>
-            <th>Opponent</th>
-            <th>Status</th>
-            <th>Game 1</th>
-            <th>Game 2</th>
-            <th>Game 3</th>
-            <th>Game 4</th>
-            <th>Game 5</th>
-          </tr>
-        <% @matches.each do |match| %>
-          <tr>
-            <td><%= match.id %></td>
-          </tr>
+  <div class="row full-width">
+    <ul class="tabs vertical" data-tab>
+      <li class="tab-title active"><a href="#activematches">Active Matches</a></li>
+      <li class="tab-title"><a href="#completed">Completed Matches</a></li>
+      <li class="tab-title"><a href="#pending">Pending Matches</a></li>
+    </ul>
+
+    <div class="tabs-content vertical match-table">
+      <div id="activematches" class="content active">
+        <h2>Active Matches</h2>
+        <% if @matches %>
+          <table>
+            <tr>
+              <th>Match Name</th>
+              <th>Opponent</th>
+              <th>Status</th>
+              <th>Game 1</th>
+              <th>Game 2</th>
+              <th>Game 3</th>
+              <th>Game 4</th>
+              <th>Game 5</th>
+            </tr>
+          <% @matches.each do |match| %>
+            <tr>
+              <td><%= match.id %></td>
+            </tr>
+          <% end %>
+          </table>
+        <% else %>
+          <strong>You don't have any active matches.</strong>
         <% end %>
-        </table>
-      <% else %>
-        <strong>You don't have any active matches.</strong>
-      <% end %>
-    </div>
-    <div class="large-6 columns match-table">
-      <h2>Completed Matches</h2>
-      <% if @matches %>
-        <table>
-          <tr>
-            <th>Match Name</th>
-            <th>Opponent</th>
-            <th>Status</th>
-            <th>Game 1</th>
-            <th>Game 2</th>
-            <th>Game 3</th>
-            <th>Game 4</th>
-            <th>Game 5</th>
-          </tr>
-        <% @matches.each do |match| %>
-          <tr>
-            <td><%= match.id %></td>
-          </tr>
+      </div>
+      <div id="completed" class="content">
+        <h2>Completed Matches</h2>
+        <% if @matches %>
+          <table>
+            <tr>
+              <th>Match Name</th>
+              <th>Opponent</th>
+              <th>Status</th>
+              <th>Game 1</th>
+              <th>Game 2</th>
+              <th>Game 3</th>
+              <th>Game 4</th>
+              <th>Game 5</th>
+            </tr>
+          <% @matches.each do |match| %>
+            <tr>
+              <td><%= match.id %></td>
+            </tr>
+          <% end %>
+          </table>
+        <% else %>
+          <strong>You don't have any completed matches.</strong>
         <% end %>
-        </table>
-      <% else %>
-        <strong>You don't have any completed matches.</strong>
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-6 columns centered match-table">
-      <h2>Pending Matches</h2>
-      <% if @matches %>
-        <table>
-          <tr>
-            <th>Match Name</th>
-            <th>Opponent</th>
-            <th>Status</th>
-            <th>Game 1</th>
-            <th>Game 2</th>
-            <th>Game 3</th>
-            <th>Game 4</th>
-            <th>Game 5</th>
-          </tr>
-        <% @matches.each do |match| %>
-          <tr>
-            <td><%= match.id %></td>
-          </tr>
+      </div>
+      <div id="pending" class="content">
+        <h2>Pending Matches</h2>
+        <% if @matches %>
+          <table>
+            <tr>
+              <th>Match Name</th>
+              <th>Opponent</th>
+              <th>Status</th>
+              <th>Game 1</th>
+              <th>Game 2</th>
+              <th>Game 3</th>
+              <th>Game 4</th>
+              <th>Game 5</th>
+            </tr>
+          <% @matches.each do |match| %>
+            <tr>
+              <td><%= match.id %></td>
+            </tr>
+          <% end %>
+          </table>
+        <% else %>
+          <strong>You don't have any pending matches.</strong>
         <% end %>
-        </table>
-      <% else %>
-        <strong>You don't have any pending matches.</strong>
-      <% end %>
-      <button id="showBottom" class="round">Invite a friend to a new game</button>
+      </div>
+      <center><button id="showBottom" class="round">Invite a friend to a new game</button></center>
     </div>
   </div>
 </div>
