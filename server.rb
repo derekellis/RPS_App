@@ -6,6 +6,7 @@ require_relative 'lib/rps_app.rb'
 
 
 set :bind, '0.0.0.0' # Vagrant fix
+set :port, '1234'
 set :sessions, true
 set :session_secret, 'super secret'
 use Rack::Flash

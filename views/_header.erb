@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   <head>
       <meta charset="utf-8">
@@ -25,8 +25,8 @@
       <section class="top-bar-section">
         <ul class="right">
           <li>
-            <% if @user %>
-              <a href="/matches" action="/" method="get">You're signed in as Player 1</a>
+            <% if session['sesh_example'] %>
+              <a href="/matches" action="/" method="get">You're signed in as <%= session['sesh_example'] %></a>
             <% else %>
               <a href="#signin" id="login">You are not logged in</a>
             <% end %></li>
