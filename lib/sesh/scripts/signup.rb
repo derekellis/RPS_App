@@ -1,9 +1,9 @@
 module RPS
   class SignUp
     def self.run(params)
-      if params['username'].empty? || params['password'].empty? || params['password_conf'].empty?
+      if params['username'].empty? || params['password'].empty? || params['password_confirm'].empty?
         return {:success? => false, :error => "EMPTY FIELDS"}
-      elsif Sesh.dbi.username_exists?(params['username'])
+      elsif RPS.dbi.username_exists?(params['username'])
         return {:success? => false, :error => "USER ALREADY EXISTS"}
       elsif params['password'] != params['password_conf']
         return {:success? => false, :error => "PASSWORDS DON'T MATCH"}
@@ -11,7 +11,7 @@ module RPS
 
       user = RPS::User.new(params['username'])
       user.update_password(params['password'])
-      RPS.dbi.persist_user(user)
+      RPS.dbi.create_player(user.username, user.password_digest)
 
       {
         :success? => true,

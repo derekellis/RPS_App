@@ -1,7 +1,8 @@
 # required gem includes
 require 'sinatra'
 require "sinatra/json"
-#require_relative 'lib/sesh.rb'
+require_relative 'lib/rps_app.rb'
+
 
 set :bind, '0.0.0.0' # Vagrant fix
 set :sessions, true
@@ -44,8 +45,8 @@ post '/signin' do
     session['sesh_example'] = sign_in[:session_id]
     redirect to '/'
   else
-    flash[:alert] = sign_in[:error]
-    redirect to '/signin'
+    # flash[:alert] = sign_in[:error]
+    redirect to '/'
   end
 end
 
@@ -56,8 +57,8 @@ post '/signup' do
     session['sesh_example'] = sign_up[:session_id]
     redirect to '/'
   else
-    flash[:alert] = sign_up[:error]
-    redirect to '/sign_up'
+    # flash[:alert] = sign_up[:error]
+    redirect to '/'
   end 
 
 end

@@ -5,7 +5,7 @@ module RPS
         return {:success => false, :error => "BLANK ENTRIES"}
       end
 
-      user = RPS.dbi.get_user_by_username(params['username'])
+      user = RPS.dbi.get_player_by_username(params['username'])
       return {:success? => false, :error => "NO SUCH USER"} if !user
 
       if !user.has_password?(params['password'])
@@ -16,6 +16,6 @@ module RPS
         :success? => true,
         :session_id => user.username
       }
-
+    end
   end
 end

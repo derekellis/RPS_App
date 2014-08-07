@@ -30,8 +30,8 @@ module RPS
       games = %q[
         CREATE TABLE IF NOT EXISTS games(
           id SERIAL,
-          1_move text,
-          2_move text,
+          player_1_move text,
+          player_2_move text,
           match_id integer REFERENCES matches(id),
           winner integer,
           PRIMARY KEY ( id )
@@ -50,6 +50,18 @@ module RPS
       @db.exec(create)
     end
 
+    def username_exists?(username)
+      result = @db.exec(%Q[
+        SELECT * FROM players WHERE username = '#{username}';
+      ])
+
+      if result.count > 1
+        true
+      else
+        false
+      end
+    end
+
     def get_player(id)
       get = <<-SQL
       SELECT * FROM players WHERE id = id;
@@ -57,11 +69,18 @@ module RPS
       @db.exec(get)
     end
 
-    def get_player_by_username(user)
-      get = <<-SQL
-      SELECT * FROM players WHERE username = '#{username}';
-      SQL
-      @db.exec(get)
+    def get_player_by_username(username)
+      result = @db.exec(%Q[
+        SELECT * FROM players WHERE username = '#{username}';
+      ])
+
+      user_data = result.first
+      
+      if user_data
+        build_user(user_data)
+      else
+        nil
+      end
     end
 
     def update_password(password, user_id)
@@ -137,7 +156,7 @@ module RPS
     def update_player1_moves(game_id, move)
       update = <<-SQL
       UPDATE games SET 
-      1_move = '#{move}'
+      player_1_move = '#{move}'
       WHERE id = #{game_id};
       SQL
       @db.exec(update)
@@ -146,7 +165,7 @@ module RPS
     def update_player2_moves(game_id, move)
       update = <<-SQL
       UPDATE games SET 
-      2_move = '#{move}'
+      player_2_move = '#{move}'
       WHERE id = #{game_id};
       SQL
       @db.exec(update)
