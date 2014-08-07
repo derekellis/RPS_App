@@ -104,6 +104,20 @@ module RPS
       end
     end
 
+    def get_player_id(username)
+      result = @db.exec(%Q[
+        SELECT * FROM players WHERE username = '#{username}';
+      ])
+
+      user_data = result.first
+      
+      if user_data
+        user_data['id']
+      else
+        nil
+      end
+    end
+    
     def createsesh (userid)
       sessionid = Digest::SHA1.hexdigest userid
       insert = <<-SQL
