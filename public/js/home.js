@@ -11,4 +11,9 @@ $(document).ready(function(){
     $('#signup').show('slow');
     e.preventDEfault();
   });
+  $("a#login").click(function(e){
+    $('#signup').hide('slow');
+    $('#signin').show('slow');
+    e.preventDEfault();
+  });
 });
