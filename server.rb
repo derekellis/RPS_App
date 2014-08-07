@@ -21,15 +21,6 @@ get '/matches' do
   erb :matches
 end
 
-get '/signin' do
-  user = Sesh.dbi.get_user_by_username(params['username'])
-  if user && user.has_password?(params['password'])
-    session['sesh_example'] = user.username
-    redirect to '/matches'
-  else
-    "THAT'S NOT THE RIGHT PASSWORD!!!!"
-  end
-end
 
 get '/play' do
   @audio = 'js/audio.js'
@@ -38,11 +29,40 @@ get '/play' do
   erb :play
 end
 
-get '/signout' do
-  session.clear
-  redirect to '/'
+get '/signup' do
+  if session['sesh_example']
+    redirect to '/'
+  else
+    erb :signup
+  end
+end
+
+post '/signin' do
+  sign_in = RPS::SignIn.run(params)
+
+  if sign_in[:success?]
+    session['sesh_example'] = sign_in[:session_id]
+    redirect to '/'
+  else
+    flash[:alert] = sign_in[:error]
+    redirect to '/signin'
+  end
 end
 
 post '/signup' do
+  sign_up = RPS::SignUp.run(params)
+
+  if sign_up[:success?]
+    session['sesh_example'] = sign_up[:session_id]
+    redirect to '/'
+  else
+    flash[:alert] = sign_up[:error]
+    redirect to '/sign_up'
+  end 
+
+end
+
+get '/signout' do
+  session.clear
   redirect to '/'
 end
