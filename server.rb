@@ -24,6 +24,9 @@ get '/' do
 end
 
 get '/matches' do
+  if !session['sesh_example']
+    redirect to '/'
+  end
   @js = 'js/pushmenu.js'
   @matches = nil#Sesh.dbi.get_all_matches(username)
   erb :matches
@@ -31,6 +34,9 @@ end
 
 
 get '/play' do
+  if !session['sesh_example']
+    redirect to '/'
+  end
   @audio = 'js/audio.js'
   @active_user = true
   @current_player = 'Player 1'
