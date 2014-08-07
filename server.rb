@@ -28,7 +28,9 @@ get '/matches' do
     redirect to '/'
   end
   @js = 'js/pushmenu.js'
-  @matches = nil#Sesh.dbi.get_all_matches(username)
+  @id = RPS.dbi.get_player_id(session['sesh_example'])
+  @matches = RPS.dbi.display_matches(@id)
+
   erb :matches
 end
 
@@ -39,7 +41,7 @@ get '/play' do
   end
   @audio = 'js/audio.js'
   @active_user = true
-  @current_player = 'Player 1'
+  @current_player = session['sesh_example']
   erb :play
 end
 
