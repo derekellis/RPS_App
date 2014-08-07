@@ -1,12 +1,14 @@
 $(document).ready(function(){
   $('#signin').hide();
   $('#signup').hide();
-  $("a.signin").click(function(){
+  $("a.signin").click(function(e){
     $('#signup').hide('slow');
     $('#signin').show('slow');
+    e.preventDEfault();
   });
-  $("a.signup").click(function(){
+  $("a.signup").click(function(e){
     $('#signin').hide('slow');
     $('#signup').show('slow');
+    e.preventDEfault();
   });
 });

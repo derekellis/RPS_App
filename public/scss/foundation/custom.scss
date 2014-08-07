@@ -22,6 +22,9 @@ a, strong {
   margin: 0 auto;
   float: none;
 }
+.error h1 {
+  font-size: 6rem!important;
+}
 /*************
 Main Content
 ************/
@@ -43,6 +46,7 @@ MATCHES
 ************/
 .match-table{
   padding-bottom: 2em;
+  text-align: center;
 }
 
 /************
@@ -67,15 +71,14 @@ PUSH MENU
 $darker-menu: scale-color($highlighter, $lightness: -14%);
 .cbp-spmenu {
   background: $highlighter;
+  text-align: center;
   position: fixed;
-
 }
 
 .cbp-spmenu h3 {
   color: #ccc;
   font-size: 1.9em;
   line-height: $topbar-height;
-  padding: 0 1em;
   margin: 0;
   font-weight: 300;
   background: $darker-menu;
@@ -107,42 +110,44 @@ $darker-menu: scale-color($highlighter, $lightness: -14%);
   background: $darker-menu;
   color: $highlighter;
 }
-
-/* Orientation-dependent styles for the content of the menu */
-
-.cbp-spmenu-vertical {
-  width: 240px;
-  height: 100%;
-  top: 0;
+/* Orientation */
+.cbp-spmenu-horizontal {
+  width: 100%;
+  height: 150px;
+  left: 0;
   z-index: 1000;
+  overflow: hidden;
 }
 
-.cbp-spmenu-vertical a {
-  border-bottom: 1px solid #fff;
-  padding: 1em;
-}
-/* Vertical menu that slides from the left or right */
-
-.cbp-spmenu-left {
-  left: -240px;
+.cbp-spmenu-horizontal h3 {
+  height: 100%;
+  width: 20%;
+  float: left;
 }
 
-.cbp-spmenu-left.cbp-spmenu-open {
-  left: 0px;
+.cbp-spmenu-horizontal form {
+  float: left;
+  width: 70%;
+  padding: 0.8em;
+}
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-bottom {
+  bottom: -150px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+  bottom: 0px;
 }
 
 /* Push classes applied to the body */
-
 .cbp-spmenu-push {
   overflow-x: hidden;
   position: relative;
   left: 0;
 }
 
-.cbp-spmenu-push-toright {
-  left: 240px;
-}
-#showLeftPush{
+#showBottom{
   margin-top: 1em;
 }
 /* Transitions */
@@ -157,16 +162,7 @@ $darker-menu: scale-color($highlighter, $lightness: -14%);
 /* Example media queries */
 @media screen and (max-height: 26.375em){
 
-  .cbp-spmenu-vertical {
+  .cbp-spmenu{
     font-size: 90%;
-    width: 190px;
-  }
-
-  .cbp-spmenu-left,
-  .cbp-spmenu-push-toleft {
-    left: -190px;
-  }
-  .cbp-spmenu-push-toright {
-    left: 190px;
   }
 }
