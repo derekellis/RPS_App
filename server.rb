@@ -1,12 +1,14 @@
 # required gem includes
 require 'sinatra'
 require "sinatra/json"
+require 'rack-flash'
 require_relative 'lib/rps_app.rb'
 
 
 set :bind, '0.0.0.0' # Vagrant fix
 set :sessions, true
 set :session_secret, 'super secret'
+use Rack::Flash
 
 # partial
 # layouts
@@ -14,7 +16,8 @@ set :session_secret, 'super secret'
 get '/' do
   @home = 'js/home.js'
   if session['sesh_example']
-    @@user = RPS.dbi.get_player_by_username(session['sesh_example'])
+    @user = RPS.dbi.get_player_by_username(session['sesh_example'])
+    erb :matches
   end
   erb :index
 end
@@ -46,9 +49,9 @@ post '/signin' do
 
   if sign_in[:success?]
     session['sesh_example'] = sign_in[:session_id]
-    redirect to '/'
+    redirect to '/matches'
   else
-    # flash[:alert] = sign_in[:error]
+    flash[:alert] = sign_in[:error]
     redirect to '/'
   end
 end
@@ -58,9 +61,9 @@ post '/signup' do
 
   if sign_up[:success?]
     session['sesh_example'] = sign_up[:session_id]
-    redirect to '/'
+    redirect to '/matches'
   else
-    # flash[:alert] = sign_up[:error]
+    flash[:alert] = sign_up[:error]
     redirect to '/'
   end 
 

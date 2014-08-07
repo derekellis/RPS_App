@@ -77,7 +77,7 @@ module RPS
     end
 
     def build_user(data)
-      RPS::User.new(data['username'], data['password_digest'])
+      RPS::User.new(data['username'], data['password'])
     end
 
     def get_player_by_username(username)

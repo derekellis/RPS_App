@@ -5,6 +5,8 @@ GEM
     multi_json (1.10.1)
     pg (0.17.1)
     rack (1.5.2)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
@@ -28,6 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   pg
+  rack-flash3
   sass
   sinatra
   sinatra-contrib
