@@ -39,6 +39,16 @@ module RPS
       @db.exec(games)
 
 
+      sessiontable = %q[
+        CREATE TABLE IF NOT EXISTS sessions(
+          id SERIAL,
+          userid integer REFERENCES players(id),
+          sessionid text,
+          PRIMARY KEY ( id )
+          );]
+      @db.exec(sessiontable)
+
+
     end
 
     def persist_user(user)
@@ -92,6 +102,16 @@ module RPS
       else
         nil
       end
+    end
+
+    def createsesh (userid)
+      sessionid = Digest::SHA1.hexdigest userid
+      insert = <<-SQL
+      INSERT INTO sessions (sessionid, userid)
+      VALUES ('#{sessionid}', #{userid});
+      SQL
+      @db.exec(insert)
+      sessionid
     end
 
     def update_password(password, user_id)
