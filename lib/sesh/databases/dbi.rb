@@ -255,6 +255,13 @@ module RPS
       SQL
       @db.exec(update)
     end
+
+    def get_all_players(current_player_id);
+      select = <<-SQL
+      SELECT * FROM players WHERE id != '#{current_player_id}';
+      SQL
+      @db.exec(select)
+    end
   end
 
   def self.dbi
