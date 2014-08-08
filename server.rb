@@ -18,7 +18,7 @@ get '/' do
   @home = 'js/home.js'
   if session['sesh_example']
     @user = RPS.dbi.get_player_by_username(session['sesh_example'])
-    erb :matches
+    redirect to '/matches'
   end
   erb :index
 end
@@ -33,6 +33,7 @@ get '/matches' do
   @pending_matches = RPS.dbi.pending_matches(@id)
   @completed_matches = RPS.dbi.completed_matches(@id)
   @all_players = RPS.dbi.get_all_players(@id)
+  @current_player = RPS.dbi.get_player_by_id(@id).username
   erb :matches
 end
 
@@ -44,8 +45,6 @@ post '/matches' do
   @p2 = RPS.dbi.get_player_id(params['invitee'])
 
   RPS.dbi.create_player_match(@p1, @p2)
-
-  puts "HELLO!!!! "
 
   erb :matches
 end
