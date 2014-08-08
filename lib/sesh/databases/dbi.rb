@@ -23,6 +23,7 @@ module RPS
           player1 integer REFERENCES players(id),
           player2 integer REFERENCES players(id),
           winner integer REFERENCES players(id),
+          status text,
           PRIMARY KEY ( id )
           );]
       @db.exec(matches)
@@ -117,7 +118,7 @@ module RPS
         nil
       end
     end
-    
+
     def createsesh (userid)
       sessionid = Digest::SHA1.hexdigest userid
       insert = <<-SQL
@@ -172,6 +173,27 @@ module RPS
     def display_matches(user_id)
       select = <<-SQL
       SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id};
+      SQL
+      @db.exec(select)
+    end
+
+    def active_matches(user_id)
+      select = <<-SQL
+      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'active';
+      SQL
+      @db.exec(select)
+    end
+
+    def pending_matches(user_id)
+      select = <<-SQL
+      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'pending';
+      SQL
+      @db.exec(select)
+    end
+
+    def completed_matches(user_id)
+      select = <<-SQL
+      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'completed';
       SQL
       @db.exec(select)
     end
