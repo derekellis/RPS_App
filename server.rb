@@ -33,6 +33,7 @@ get '/matches' do
   puts @active_matches
   @pending_matches = RPS.dbi.pending_matches(@id)
   @completed_matches = RPS.dbi.completed_matches(@id)
+
   
 
 
@@ -43,10 +44,14 @@ post '/matches' do
   if !session['sesh_example']
     redirect to '/'
   end
+  @p1 = RPS.dbi.get_player_id(session['sesh_example'])
+  @p2 = RPS.dbi.get_player_id(params['invitee'])
 
-  RPS.dbi.create_player_match(session['sesh_example'],params['invitee'])
+  RPS.dbi.create_player_match(@p1, @p2)
 
+  puts "HELLO!!!! "
 
+  erb :matches
 end
 
 

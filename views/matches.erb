@@ -9,7 +9,7 @@
     <div class="tabs-content vertical match-table">
       <div id="activematches" class="content active">
         <h2>Active Matches</h2>
-        <% if @active_matches.is_a?(Array) %>
+        <% if @active_matches.first.is_a?(Hash)%>
           <table>
             <tr>
               <th>Match Name</th>
@@ -23,7 +23,11 @@
             </tr>
           <% @active_matches.each do |match| %>
             <tr>
-              <td><%= match.id %></td>
+            <% if match['status'] == 'active' %>
+              <td><%= match['id'] %></td>
+              <td><%= RPS.dbi.get_player_by_id(match['player2']).username %></td>
+              <td><%= match['status']%></td>
+            <% end %>
             </tr>
           <% end %>
           </table>
@@ -47,7 +51,11 @@
             </tr>
           <% @completed_matches.each do |match| %>
             <tr>
-              <td><%= match.id %></td>
+            <% if match['status'] == 'complete' %>
+              <td><%= match['id'] %></td>
+              <td><%= RPS.dbi.get_player_by_id(match['player2']).username %></td>
+              <td><%= match['status']%></td>
+            <% end %>
             </tr>
           <% end %>
           </table>
@@ -57,21 +65,21 @@
       </div>
       <div id="pending" class="content">
         <h2>Pending Matches</h2>
-        <% if @pending_matches.is_a?(Array) %>
+        <% if @pending_matches %>
+          <%= puts @pending_matches.is_a?(Array) %>
           <table>
             <tr>
               <th>Match Name</th>
               <th>Opponent</th>
               <th>Status</th>
-              <th>Game 1</th>
-              <th>Game 2</th>
-              <th>Game 3</th>
-              <th>Game 4</th>
-              <th>Game 5</th>
             </tr>
           <% @pending_matches.each do |match| %>
             <tr>
-              <td><%= match.id %></td>
+            <% if match['status'] == 'pending' %>
+              <td><%= match['id'] %></td>
+              <td><%= RPS.dbi.get_player_by_id(match['player2']).username %></td>
+              <td><%= match['status']%></td>
+            <% end %>
             </tr>
           <% end %>
           </table>
