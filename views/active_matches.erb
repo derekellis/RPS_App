@@ -1,0 +1,33 @@
+<div id="activematches" class="content active">
+  <h2>Active Matches</h2>
+  <% if @active_matches.values.is_a?(Array)%>
+    <table>
+      <tr>
+        <th>Match Name</th>
+        <th>Opponent</th>
+        <th>Status</th>
+        <th>Game 1</th>
+        <th>Game 2</th>
+        <th>Game 3</th>
+        <th>Game 4</th>
+        <th>Game 5</th>
+      </tr>
+    <% @active_matches.each do |match| %>
+      <tr>
+      <% if match['status'] == 'active' %>
+        <td><%= match['id'] %></td>
+        <td><% if @current_player != RPS.dbi.get_player_by_id(match['player2']).username %>
+              <%= RPS.dbi.get_player_by_id(match['player2']).username %>
+            <% else %>
+              <%= RPS.dbi.get_player_by_id(match['player1']).username %>
+            <% end %>
+        </td>
+        <td><%= match['status']%></td>
+      <% end %>
+      </tr>
+    <% end %>
+    </table>
+  <% else %>
+    <strong>You don't have any active matches.</strong>
+  <% end %>
+</div>

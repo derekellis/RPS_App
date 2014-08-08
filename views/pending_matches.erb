@@ -1,0 +1,29 @@
+<div id="pending" class="content">
+ <h2>Pending Matches</h2>
+ <% if @pending_matches %>
+   <%= puts @pending_matches.is_a?(Array) %>
+   <table>
+     <tr>
+       <th>Match Name</th>
+       <th>Opponent</th>
+       <th>Status</th>
+     </tr>
+   <% @pending_matches.each do |match| %>
+     <tr>
+     <% if match['status'] == 'pending' %>
+       <td><%= match['id'] %></td>
+       <td><% if @current_player != RPS.dbi.get_player_by_id(match['player2']).username %>
+             <%= RPS.dbi.get_player_by_id(match['player2']).username %>
+           <% else %>
+             <%= RPS.dbi.get_player_by_id(match['player1']).username %>
+           <% end %>
+       </td>
+       <td><%= match['status']%></td>
+     <% end %>
+     </tr>
+   <% end %>
+   </table>
+ <% else %>
+   <strong>You don't have any pending matches.</strong>
+ <% end %>
+</div>
