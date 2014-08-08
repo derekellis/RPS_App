@@ -1,13 +1,17 @@
-module RPS
-  class Match
-    attr_accessor :id, :player_1, :player_2, :winner
+# module RPS
+#   class Match
+#     attr_accessor :id, :player_1, :player_2, :winner
 
-    def initialize (###)
+#     def initialize(id, player_1, player_2 = nil, winner = nil)
+#       @id = id
+#       @player_1 = player_1
+#       @player_2 = player_2
+#       @winner = winner
+#       @games = []
+#     end
 
-    end
-
-    #def connect to game
+#     def fills(game)
 
 
-  end
-end
+#   end
+# end

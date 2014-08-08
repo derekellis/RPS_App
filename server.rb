@@ -31,7 +31,18 @@ get '/matches' do
   @id = RPS.dbi.get_player_id(session['sesh_example'])
   @matches = RPS.dbi.display_matches(@id)
 
+
   erb :matches
+end
+
+post '/matches' do
+  if !session['sesh_example']
+    redirect to '/'
+  end
+
+  RPS.dbi.create_player_match(session['sesh_example'],params['invitee'])
+
+
 end
 
 
