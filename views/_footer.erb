@@ -21,8 +21,8 @@
           var bodyHeight = ($('#main-content').innerHeight() + $('footer').height() + $('header').height());
           var windowHeight = $(window).innerHeight();
           if (bodyHeight < windowHeight){
-            var difference = (windowHeight - bodyHeight)/2 + 15;
-            $('#main-content').css({'padding-top':  difference, 'padding-bottom':  difference});
+            var difference = (windowHeight - bodyHeight);
+            $('#main-content').css({'padding-bottom':  difference});
           };
         };
         $(window).on('resize',fillWindow);

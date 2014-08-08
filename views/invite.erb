@@ -1,0 +1,31 @@
+<div id="invites" class="content">
+  <h2>Invites</h2>
+    <% if @pending_matches %>
+    <% count = 1 %>
+    <table>
+      <tr>
+        <th>Play</th>
+        <th>Match</th>
+        <th>Opponent</th>
+        <th>Status</th>
+      </tr>
+    <% @pending_matches.each do |match| %>
+      <% if @current_player != RPS.dbi.get_player_by_id(match['player1']).username %>
+      <tr>
+      <% if match['status'] == 'pending' %>
+        <td><span class="entypo-right-circled"></span></td>
+        <td><%= count %></td>
+        <td>
+              <%= RPS.dbi.get_player_by_id(match['player1']).username %>
+        </td>
+        <td><%= match['status']%></td>
+        <% count += 1 %>
+      <% end %>
+      </tr>
+      <% end %>
+    <% end %>
+    </table>
+  <% else %>
+    <strong>You haven't been invited to any matches.</strong>
+  <% end %>
+</div>

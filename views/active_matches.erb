@@ -1,9 +1,11 @@
 <div id="activematches" class="content active">
   <h2>Active Matches</h2>
-  <% if @active_matches.values.is_a?(Array)%>
+  <% if @active_matches.is_a?(Array)%>
+    <% count = 1 %>
     <table>
       <tr>
-        <th>Match Name</th>
+        <th>Play</th>
+        <th>Match</th>
         <th>Opponent</th>
         <th>Status</th>
         <th>Game 1</th>
@@ -15,7 +17,7 @@
     <% @active_matches.each do |match| %>
       <tr>
       <% if match['status'] == 'active' %>
-        <td><%= match['id'] %></td>
+        <td><%= count %></td>
         <td><% if @current_player != RPS.dbi.get_player_by_id(match['player2']).username %>
               <%= RPS.dbi.get_player_by_id(match['player2']).username %>
             <% else %>
@@ -23,6 +25,7 @@
             <% end %>
         </td>
         <td><%= match['status']%></td>
+        <% count += 1 %>
       <% end %>
       </tr>
     <% end %>

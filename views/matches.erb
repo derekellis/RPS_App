@@ -1,15 +1,23 @@
+<% @invite_count = 0 %>
+<% @pending_matches.each do |match| %>
+  <% if @current_player != RPS.dbi.get_player_by_id(match['player1']).username %>
+    <% @invite_count += 1 %>
+  <% end %>
+<% end %>
 <div id="main-content">
   <div class="row full-width">
     <ul class="tabs vertical" data-tab>
       <li class="tab-title active"><a href="#activematches">Active Matches</a></li>
       <li class="tab-title"><a href="#completed">Completed Matches</a></li>
       <li class="tab-title"><a href="#pending">Pending Matches</a></li>
+      <li class="tab-title"><a href="#invites">(<%= @invite_count %>) Invites</a></li>
     </ul>
 
     <div class="tabs-content vertical match-table">
       <%= erb :active_matches %>
       <%= erb :completed_matches %>
       <%= erb :pending_matches %>
+      <%= erb :invite %>
       <center><button id="showBottom" class="round">Invite a friend to a new game</button></center>
     </div>
   </div>
