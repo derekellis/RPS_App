@@ -27,7 +27,7 @@
         <ul class="right">
           <li>
             <% if session['sesh_example'] %>
-              <a href="/matches" action="/" method="get">You're signed in as <%= session['sesh_example'] %></a>
+              <a href="/matches" action="/" method="get">You're signed in as <%= session['sesh_example'].capitalize %></a>
             <% else %>
               <a href="#signin" id="login">You are not logged in</a>
             <% end %></li>

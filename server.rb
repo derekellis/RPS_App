@@ -46,9 +46,8 @@ post '/matches' do
 
   RPS.dbi.create_player_match(@p1, @p2)
 
-  erb :matches
+  redirect to '/matches'
 end
-
 
 get '/play' do
   if !session['sesh_example']
@@ -58,6 +57,21 @@ get '/play' do
   @active_user = true
   @current_player = session['sesh_example']
   erb :play
+end
+
+post '/play' do
+end
+
+get '/rock' do
+  redirect to '/matches'
+end
+
+get '/paper' do
+  redirect to '/matches'
+end
+
+get '/scissors' do
+  redirect to '/matches'
 end
 
 get '/signup' do

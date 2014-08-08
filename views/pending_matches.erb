@@ -4,7 +4,6 @@
    <% count = 1 %>
    <table>
      <tr>
-      <th>Play</th>
        <th>Match</th>
        <th>Opponent</th>
        <th>Status</th>
@@ -13,10 +12,14 @@
     <% if @current_player != RPS.dbi.get_player_by_id(match['player2']).username %>
      <tr>
      <% if match['status'] == 'pending' %>
-       <td><span class="entypo-right-circled"></span></td>
        <td><%= count %></td>
        <td>
              <%= RPS.dbi.get_player_by_id(match['player2']).username %>
+             <!-- 
+              this view establishes that an invite has been sent
+              -no play button is necessary, nor interaction required from
+              player in this view
+             -->
         <% count += 1 %>
        </td>
        <td><%= match['status']%></td>
