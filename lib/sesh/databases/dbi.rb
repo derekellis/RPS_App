@@ -80,11 +80,18 @@ module RPS
       end
     end
 
-    def get_player(id)
-      get = <<-SQL
-      SELECT * FROM players WHERE id = id;
-      SQL
-      @db.exec(get)
+    def get_player_by_id(id)
+      result = @db.exec(%Q[
+        SELECT * FROM players WHERE id = #{id};
+      ])
+
+      user_data = result.first
+      
+      if user_data
+        build_user(user_data)
+      else
+        nil
+      end
     end
 
     def build_user(data)
@@ -119,6 +126,18 @@ module RPS
       end
     end
 
+
+    def return_username_by_player_id(passmeid)
+      result_return = @db.exec(%q[
+        SELECT * FROM players WHERE id = #{passmeid};
+        ])
+      # if username
+      #   username
+      # else
+      #   nil
+      # end
+    end
+
     def createsesh (userid)
       sessionid = Digest::SHA1.hexdigest userid
       insert = <<-SQL
@@ -138,11 +157,10 @@ module RPS
       @db.exec(update)
     end
 
-    def create_player_match(player1, player2)
+    def create_player_match(p1, p2)
       create = <<-SQL
-      INSERT INTO matches(player1, player2)
-      VALUES (#{player1}, #{player2})
-      RETURNING id;
+      INSERT INTO matches (player1, player2, status)
+      VALUES (#{p1}, #{p2}, 'pending')
       SQL
       @db.exec(create)
     end
