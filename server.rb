@@ -29,7 +29,11 @@ get '/matches' do
   end
   @js = 'js/pushmenu.js'
   @id = RPS.dbi.get_player_id(session['sesh_example'])
-  @matches = RPS.dbi.display_matches(@id)
+  @active_matches = RPS.dbi.active_matches(@id)
+  puts @active_matches
+  @pending_matches = RPS.dbi.pending_matches(@id)
+  @completed_matches = RPS.dbi.completed_matches(@id)
+  
 
 
   erb :matches
