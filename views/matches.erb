@@ -9,7 +9,7 @@
     <div class="tabs-content vertical match-table">
       <div id="activematches" class="content active">
         <h2>Active Matches</h2>
-        <% if @matches %>
+        <% if @active_matches.is_a?(Array) %>
           <table>
             <tr>
               <th>Match Name</th>
@@ -21,7 +21,7 @@
               <th>Game 4</th>
               <th>Game 5</th>
             </tr>
-          <% @matches.each do |match| %>
+          <% @active_matches.each do |match| %>
             <tr>
               <td><%= match.id %></td>
             </tr>
@@ -33,7 +33,7 @@
       </div>
       <div id="completed" class="content">
         <h2>Completed Matches</h2>
-        <% if @matches %>
+        <% if @completed_matches.is_a?(Array) %>
           <table>
             <tr>
               <th>Match Name</th>
@@ -45,7 +45,7 @@
               <th>Game 4</th>
               <th>Game 5</th>
             </tr>
-          <% @matches.each do |match| %>
+          <% @completed_matches.each do |match| %>
             <tr>
               <td><%= match.id %></td>
             </tr>
@@ -57,7 +57,7 @@
       </div>
       <div id="pending" class="content">
         <h2>Pending Matches</h2>
-        <% if @matches %>
+        <% if @pending_matches.is_a?(Array) %>
           <table>
             <tr>
               <th>Match Name</th>
@@ -69,7 +69,7 @@
               <th>Game 4</th>
               <th>Game 5</th>
             </tr>
-          <% @matches.each do |match| %>
+          <% @pending_matches.each do |match| %>
             <tr>
               <td><%= match.id %></td>
             </tr>
@@ -87,7 +87,7 @@
   <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom" id="cbp-spmenu-s4">
     <h3>Invite</h3>
     <form>
-      <input type="text" placeholder="user to invite" />
+      <input type="text" id="autocomplete" placeholder="user to invite" />
       <button class="round" type="submit" name="submit">Send Invitation</button>
     </form>
   </nav>
