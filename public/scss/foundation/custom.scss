@@ -50,15 +50,19 @@ MATCHES
 }
 .match-table table {
   width: 100%;
+  background: none!important;
 }
 .match-table table tr:nth-child(odd){
   background: #FCF1EB;
 }
 .match-table table tr:nth-child(even){
-  background: #98918B;
+  background: #ccc;
 }
 .match-table table tr:first-child{
   background: #fff!important;
+}
+.match-table .entypo-right-circled {
+  font-size: 2em;
 }
 .tabs.vertical {
   margin-top: 4rem;
