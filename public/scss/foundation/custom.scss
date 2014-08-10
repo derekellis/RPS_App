@@ -77,6 +77,11 @@ MATCHES
 .autocomplete-suggestions {
   background: #fff;
 }
+@media #{$small-only}{
+  .tabs.vertical {
+    margin-top: 0;
+  }
+}
 /************
 INPUT
 ************/
