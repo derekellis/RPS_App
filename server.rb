@@ -14,6 +14,10 @@ use Rack::Flash
 # partial
 # layouts
 
+before do
+  @root = 'http://10.10.10.10:4567/'
+end
+
 get '/' do
   @home = 'js/home.js'
   if session['sesh_example']
