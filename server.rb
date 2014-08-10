@@ -33,9 +33,9 @@ get '/matches' do
   end
   @js = 'js/pushmenu.js'
   @id = RPS.dbi.get_player_id(session['sesh_example'])
-  @active_matches = RPS.dbi.active_matches(@id).sort {|a,b| a['id'] <=> b['id']}
-  @pending_matches = RPS.dbi.pending_matches(@id).sort {|a,b| a['id'] <=> b['id']}
-  @completed_matches = RPS.dbi.completed_matches(@id).sort {|a,b| a['id'] <=> b['id']}
+  @active_matches = RPS.dbi.active_matches(@id).sort {|a,b| a['id'].to_i <=> b['id'].to_i}
+  @pending_matches = RPS.dbi.pending_matches(@id).sort {|a,b| a['id'].to_i <=> b['id'].to_i}
+  @completed_matches = RPS.dbi.completed_matches(@id).sort {|a,b| a['id'].to_i <=> b['id'].to_i}
   @all_players = RPS.dbi.get_all_players(@id)
   @current_player = RPS.dbi.get_player_by_id(@id).username
   erb :matches
