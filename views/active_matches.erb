@@ -24,8 +24,7 @@
               <%= RPS.dbi.get_player_by_id(match['player1']).username %>
             <% end %>
         </td>
-        <% games = RPS.dbi.games_by_match(match['id']) %>
-        <%= games.values %>
+        <% games = RPS.dbi.games_by_match(match['id']).sort {|b,a| a['id'].to_i <=> b['id'].to_i} %>
         <% games.each do |game| %>
           <% if game['winner'] %>
           <td><%= RPS.dbi.get_player_by_id(game['winner']).username %> won!</td>
