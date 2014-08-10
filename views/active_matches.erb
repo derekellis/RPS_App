@@ -7,7 +7,6 @@
         <th>Play</th>
         <th>Match</th>
         <th>Opponent</th>
-        <th>Status</th>
         <th>Game 1</th>
         <th>Game 2</th>
         <th>Game 3</th>
@@ -25,8 +24,15 @@
               <%= RPS.dbi.get_player_by_id(match['player1']).username %>
             <% end %>
         </td>
-        <td><%= match['status']%></td>
-        
+        <% games = RPS.dbi.games_by_match(match['id']) %>
+        <%= games.values %>
+        <% games.each do |game| %>
+          <% if game['winner'] %>
+          <td><%= RPS.dbi.get_player_by_id(game['winner']).username %> won!</td>
+          <% else %>
+          <td>--</td>
+          <% end %>
+        <% end %>
         <!-- pass game_id to play page (game_id can reference match for player)
 
         play does not change anything in the database in this view

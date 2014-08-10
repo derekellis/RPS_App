@@ -18,14 +18,15 @@
     <%= "<script src=\"/#{@audio}\"></script>" if @audio %>
     <script type="text/javascript">
         var fillWindow = function(){
-          var bodyHeight = ($('#main-content').innerHeight() + $('footer').height() + $('header').height());
-          var windowHeight = $(window).innerHeight();
+          var bodyHeight = ($('#main-content').innerHeight() + 25 + $('header').height());
+          var windowHeight = $(window).height();
           if (bodyHeight < windowHeight){
             var difference = (windowHeight - bodyHeight);
             $('#main-content').css({'padding-bottom':  difference});
           };
         };
         $(window).on('resize',fillWindow);
+        window.fillWindow();
     </script>
     <% if @all_players %>
     <script>
