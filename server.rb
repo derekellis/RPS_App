@@ -110,6 +110,16 @@ get '/rock/:id' do
 
     end
 
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_2_id)
+    end
+
+
+
 
   elsif @match_object['player2'] == @user_id
     @player_1_id = RPS.dbi.find_player_1_id(@match_id).first['player1'].to_i
@@ -131,6 +141,14 @@ get '/rock/:id' do
     
       RPS.dbi.nullify_player_moves(@game_id) 
 
+    end
+
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_1_id)
     end
 
 
@@ -168,6 +186,16 @@ get '/paper/:id' do
 
     end
 
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_2_id)
+    end
+
+
+
 
     # else 
      #   USE @current_game.first['id'].to_i FOR GAME PARAMETER
@@ -200,6 +228,13 @@ get '/paper/:id' do
     
       RPS.dbi.nullify_player_moves(@game_id) 
     end
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_1_id)
+    end
   end
   #CHECK FOR WINNER
 
@@ -231,6 +266,13 @@ get '/scissors/:id' do
       RPS.dbi.nullify_player_moves(@game_id) 
 
     end
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_2_id)
+    end
 
 
 
@@ -254,6 +296,13 @@ get '/scissors/:id' do
     
       RPS.dbi.nullify_player_moves(@game_id) 
 
+    end
+    @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
+    @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
+    if @count_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @user_id)
+    elsif @opposing_wins >= 3
+      RPS.dbi.set_match_winner(@match_id, @player_1_id)
     end
   end
   #CHECK FOR WINNER

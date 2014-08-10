@@ -34,7 +34,7 @@ module RPS
           player_1_move text,
           player_2_move text,
           match_id integer REFERENCES matches(id),
-          winner integer REFERNCES players(id),
+          winner integer REFERENCES players(id),
           PRIMARY KEY ( id )
           );]
       @db.exec(games)
@@ -307,13 +307,12 @@ module RPS
       @db.exec(set)
     end
 
-    def count_match_winner(m_id)
+    def count_match_winner(m_id, userid)
       count = <<-SQL
       SELECT * FROM games WHERE
-      match_id = m_id
-      AND winner = @user_id
+      match_id = #{m_id}
+      AND winner = #{userid};
       SQL
-
       @db.exec(count)
     end
 
@@ -323,7 +322,7 @@ module RPS
       winner = #{winner}
       WHERE id = #{match_id};
       SQL
-      @db.exec(update)
+      @db.exec(set)
     end
 
     def get_all_players(current_player_id);
