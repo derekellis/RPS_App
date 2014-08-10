@@ -31,6 +31,7 @@ Main Content
 #main-content {
   background: url('/images/grunge_wall.png');
   padding: 2em 0;
+  height: 100%;
 }
 /************
 PLAY
@@ -91,6 +92,9 @@ footer {
   background: #b70817;
   color: white;
   padding: 1em 0;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 /************
 PUSH MENU

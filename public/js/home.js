@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('#signin').hide();
+    $('#signin').hide();
   $('#signup').hide();
   $("a.signin").click(function(e){
     $('#signup').hide('slow');
