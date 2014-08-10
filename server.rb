@@ -106,10 +106,13 @@ get '/paper/:id' do
   @user_id = RPS.dbi.get_player_id(session['sesh_example'])
   if @match_object['player1'] == @user_id
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
     RPS.dbi.update_player1_moves(@current_game.first['id'].to_i, 'paper')
 
     # player_1 move is paper
-    # game_id IS EQUAL TO id @current_game.first['id'].to_i
+    # game_id = id @current_game.first['id'].to_i
     
   
 
@@ -118,41 +121,53 @@ get '/paper/:id' do
     
 
 
-    # @player_2_id = SQL QUERY q%['SQL 
-    # SELECT player2 FROM matches WHERE id = #{@match_id}
-    #']
-    # @player_2 = RPS.dbi.name_of_sql(@player_2_id.first['player2'].to_i)
-
-    # @opposition_choice = SQL QUERY q%['
-    # SELECT player_2_move FROM games WHERE id = @current_game.first['id'].to_i
-
-    # @opposition_choice['player_2_move']
+    # @player_2_id = RPS.dbi.find_player2_id(@match_id).first['id'].to_i
 
 
-    #']    
-
-
-    # USING GAME LOGIC SLOPPILY IN SERVER CODE
+    # @player_2_move = find_player2_move(@game_id).first['player_2_move']
+    # ^^^^^^^^ THIS IS A STRING 
 
 
 
     # if @opposition_choice['player_2_move'] == 'rock'
-        # UPDATE games SET winner = #{@user_id} WHERE id = #{@current_game}
+      # RPS.dbi.set_game_winner(@current_game.first['id'].to_i, @user_id)
+        
 
     # if @opposition_choice['player_2_move'] == 'scissors'
-
-        # UPDATE games SET winner = #{@player_2_id.first['player2'].to_i} 
-        # WHERE id = #{@current_game}
+      # RPS.dbi.set_game_winner(@current_game.first['id'].to_i, @player_2)
 
     # else 
-    # USE @current_game.first['id'].to_i FOR GAME PARAMETER
-    #    UPDATE games SET player_1_move = NULL AND player_2_move = NULL 
-    #    WHERE id = #{game_id};
+    #   USE @current_game.first['id'].to_i FOR GAME PARAMETER
+    #     UPDATE games SET player_1_move = NULL AND player_2_move = NULL 
+    #     WHERE id = #{game_id};
 
 
     # WHERE id = @current_game.first['id'].to_i
     # this will set the winner integer column in games equal to the
     # id of the winner
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
