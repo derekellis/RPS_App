@@ -118,8 +118,10 @@ get '/rock/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_2_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
     end
 
 
@@ -151,8 +153,11 @@ get '/rock/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_1_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+
     end
 
 
