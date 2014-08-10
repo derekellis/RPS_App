@@ -5,7 +5,7 @@ module RPS
   class DBI
     attr_reader :db
     def initialize
-      @db = PG.connect(host: 'localhost', dbname: 'rock_paper_scissors')
+      @db = PG.connect(host: 'localhost', dbname: 'rock_paper_scissors_2')
 
       players = %q[
         CREATE TABLE IF NOT EXISTS players(
@@ -38,18 +38,6 @@ module RPS
           PRIMARY KEY ( id )
           );]
       @db.exec(games)
-
-
-      sessiontable = %q[
-        CREATE TABLE IF NOT EXISTS sessions(
-          id SERIAL,
-          userid integer REFERENCES players(id),
-          sessionid text,
-          PRIMARY KEY ( id )
-          );]
-      @db.exec(sessiontable)
-
-
     end
 
     def persist_user(user)
@@ -62,8 +50,7 @@ module RPS
     def create_player(username, password)
       create = <<-SQL
       INSERT INTO players (username, password)
-      VALUES ('#{username}', '#{password}')
-      RETURNING id;
+      VALUES ('#{username}', '#{password}');
       SQL
       @db.exec(create)
     end
@@ -126,7 +113,6 @@ module RPS
       end
     end
 
-
     def return_username_by_player_id(passmeid)
       result_return = @db.exec(%q[
         SELECT * FROM players WHERE id = #{passmeid};
@@ -161,6 +147,7 @@ module RPS
       create = <<-SQL
       INSERT INTO matches (player1, player2, status)
       VALUES (#{p1}, #{p2}, 'pending')
+      RETURNING id;
       SQL
       @db.exec(create)
     end
@@ -172,11 +159,20 @@ module RPS
       @db.exec(get)
     end
 
-    def create_game(match_id)
+
+    def update_match_status(match_id, u_status)
+      update = <<-SQL
+      UPDATE matches SET 
+      status = '#{u_status}'
+      WHERE id = #{match_id};
+      SQL
+      @db.exec(update)
+    end
+
+    def create_game(match_id_pass)
       create = <<-SQL
       INSERT INTO games (match_id)
-      VALUES(#{match_id})
-      RETURNING id;
+      VALUES (#{match_id_pass});
       SQL
       @db.exec(create)
     end
@@ -230,12 +226,20 @@ module RPS
       @db.exec(select)
     end
 
-    def get_most_recent_game(match_id)
-      check = <<-SQL
-      SELECT * FROM games WHERE match_id = #{match_id}
-      ORDER BY id DESC LIMIT 1;
-      SQL
-      @db.exec(check)
+    def get_most_recent_game(match_id, player_string)     
+      if player_string == 'player_1'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id} AND 
+        player_1_move IS NULL
+        ORDER BY id DESC LIMIT 1;        
+        SQL
+      elsif player_string == 'player_2'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id} 
+        ORDER BY id DESC LIMIT 1;
+        SQL
+      end
+      @db.exec(result)
     end
 
     def update_player1_moves(game_id, move)

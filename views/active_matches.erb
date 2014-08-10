@@ -17,7 +17,7 @@
     <% @active_matches.each do |match| %>
       <tr>
       <% if match['status'] == 'active' %>
-        <td><a href="/play"><span class="entypo-right-circled"></span></a></td>
+        <td><a href="/play/<%= match['id'] %>"><span class="entypo-right-circled"></span></a></td>
         <td><%= count %></td>
         <td><% if @current_player != RPS.dbi.get_player_by_id(match['player2']).username %>
               <%= RPS.dbi.get_player_by_id(match['player2']).username %>
@@ -26,7 +26,10 @@
             <% end %>
         </td>
         <td><%= match['status']%></td>
-        <!-- play does not change anything in the database in this view
+        
+        <!-- pass game_id to play page (game_id can reference match for player)
+
+        play does not change anything in the database in this view
           it merely brings the player to the play page, which will either
           display that the game is awaiting a move selection from the opponent, or that it is the player's turn to act
          -->

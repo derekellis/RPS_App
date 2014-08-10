@@ -13,11 +13,11 @@
       <% if @current_player != RPS.dbi.get_player_by_id(match['player1']).username %>
       <tr>
       <% if match['status'] == 'pending' %>
-        <td><a href="/play"><span class="entypo-right-circled"></span></a></td>
+        <td><a href="/play/<%= match['id'] %>"><span class="entypo-right-circled"></span></a></td>
         <td><%= count %></td>
         <td>
               <%= RPS.dbi.get_player_by_id(match['player1']).username %>
-              <%= @current_match = RPS.dbi.get_match(match['id']) %>
+
               <!-- play button updates status (pending->active), initiates new game in match (0 games in match to 1),
               routes to unique play page -->
         </td>
