@@ -34,7 +34,7 @@ module RPS
           player_1_move text,
           player_2_move text,
           match_id integer REFERENCES matches(id),
-          winner integer,
+          winner integer REFERNCES players(id),
           PRIMARY KEY ( id )
           );]
       @db.exec(games)
@@ -224,7 +224,8 @@ module RPS
         SQL
       elsif player_string == 'player_2'
         result = <<-SQL
-        SELECT id FROM games WHERE match_id = #{match_id} 
+        SELECT id FROM games WHERE match_id = #{match_id}  AND
+        player_2_move is NULL
         ORDER BY id DESC LIMIT 1;
         SQL
       end
@@ -249,6 +250,16 @@ module RPS
       @db.exec(update)
     end
 
+    def nullify_player_moves(game_id)
+      update = <<-SQL
+      UPDATE games SET
+      player_2_move = NULL, 
+      player_1_move = NULL
+      WHERE id = #{game_id};
+      SQL
+      @db.exec(update)
+    end
+
     def find_player_1_id(match_id)
       find = <<-SQL
       SELECT player1 FROM matches 
@@ -264,13 +275,14 @@ module RPS
       WHERE id = #{match_id};
       SQL
 
-      @db.exec(find)
-    end
+      @db.exec(find) # IF THIS IS RETURNING
+      #                THEN PITA (it's the wine)
+     end
 
     def find_player1_move(game_id)
       find = <<-SQL
       SELECT player_1_move FROM games
-      where id - #{game_id};
+      where id = #{game_id};
       SQL
 
       @db.exec(find)
@@ -278,8 +290,8 @@ module RPS
 
     def find_player2_move(game_id)
       find = <<-SQL
-      SELECT player_1_move FROM games
-      where id - #{game_id};
+      SELECT player_2_move FROM games
+      where id = #{game_id};
       SQL
 
       @db.exec(find)
@@ -293,6 +305,16 @@ module RPS
       WHERE id = #{game_id};
       SQL
       @db.exec(set)
+    end
+
+    def count_match_winner(m_id)
+      count = <<-SQL
+      SELECT * FROM games WHERE
+      match_id = m_id
+      AND winner = @user_id
+      SQL
+
+      @db.exec(count)
     end
 
     def set_match_winner(match_id, winner)

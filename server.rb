@@ -85,17 +85,57 @@ get '/rock/:id' do
   puts 'user_id'
   puts @user_id
   if @match_object['player1'] == @user_id
+    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
-    # SCORRRRRRRRRE!!!!!!!! 
-    # MAJOR BUG
-    # changed get_most_recent_game from selecting * from games. Now 'id's from games.
-    # !!!!!!.first['id'].to_i FOR WHEN YOU ARE PASSING AN INTEGER TO SQL
-    # DBI METHOD!!!!
-    RPS.dbi.update_player1_moves(@current_game.first['id'].to_i, 'rock')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
+    RPS.dbi.update_player1_moves(@game_id, 'rock')
+    @player_2_move = RPS.dbi.find_player2_move(@game_id).first['player_2_move']
+    # ^^^^^^^^ THIS IS A STRING 
+    if @player_2_move == 'scissors'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
+        
+
+    elsif @player_2_move == 'paper'
+      RPS.dbi.set_game_winner(@game_id, @player_2_id)
+
+    elsif @player_2_move == 'rock'
+
+
+      #TRYING TO ERASE BOTH MOVES FROM BOTH PLAYERS!!!!!!!!!
+      RPS.dbi.nullify_player_moves(@game_id) 
+
+
+    end
+
+
   elsif @match_object['player2'] == @user_id
+    @player_1_id = RPS.dbi.find_player_1_id(@match_id).first['player1'].to_i
+
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_2')
-    RPS.dbi.update_player2_moves(@current_game.first['id'].to_i,'rock')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
+    RPS.dbi.update_player2_moves(@game_id, 'rock')
+    @player_1_move = RPS.dbi.find_player1_move(@game_id).first['player_1_move']
+    # ^^^^^^^^ THIS IS A STRING 
+    if @player_1_move == 'scissors'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
+        
+    elsif @player_1_move == 'paper'
+      RPS.dbi.set_game_winner(@game_id, @player_1_id)
+
+    elsif @player_1_move == 'rock'
+    
+      RPS.dbi.nullify_player_moves(@game_id) 
+
+    end
+
+
   end
+  #CHECK FOR WINNER
 
   redirect to '/matches'
 end
@@ -104,40 +144,33 @@ get '/paper/:id' do
   @match_id = params[:id]
   @match_object = RPS.dbi.get_match(@match_id).first
   @user_id = RPS.dbi.get_player_id(session['sesh_example'])
+
   if @match_object['player1'] == @user_id
+    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
     #THIS IS A PG OBJECT UGH
     @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
 
-    RPS.dbi.update_player1_moves(@current_game.first['id'].to_i, 'paper')
-
-    # player_1 move is paper
-    # game_id = id @current_game.first['id'].to_i
-    
-  
-
-
-    # DECLARING VARIABLES NEEDED FOR LOGIC AND SHIT
-    
-
-
-    # @player_2_id = RPS.dbi.find_player2_id(@match_id).first['id'].to_i
-
-
-    # @player_2_move = find_player2_move(@game_id).first['player_2_move']
+    RPS.dbi.update_player1_moves(@game_id, 'paper')
+    @player_2_move = RPS.dbi.find_player2_move(@game_id).first['player_2_move']
     # ^^^^^^^^ THIS IS A STRING 
-
-
-
-    # if @opposition_choice['player_2_move'] == 'rock'
-      # RPS.dbi.set_game_winner(@current_game.first['id'].to_i, @user_id)
+    if @player_2_move == 'rock'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
         
 
-    # if @opposition_choice['player_2_move'] == 'scissors'
-      # RPS.dbi.set_game_winner(@current_game.first['id'].to_i, @player_2)
+    elsif @player_2_move == 'scissors'
+      RPS.dbi.set_game_winner(@game_id, @player_2_id)
+
+    elsif @player_2_move == 'paper'
+    
+      RPS.dbi.nullify_player_moves(@game_id) 
+
+    end
+
 
     # else 
-    #   USE @current_game.first['id'].to_i FOR GAME PARAMETER
+     #   USE @current_game.first['id'].to_i FOR GAME PARAMETER
     #     UPDATE games SET player_1_move = NULL AND player_2_move = NULL 
     #     WHERE id = #{game_id};
 
@@ -146,47 +179,29 @@ get '/paper/:id' do
     # this will set the winner integer column in games equal to the
     # id of the winner
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     # FUTURE TODO: set match winner if winner > 3 instances
 
   elsif @match_object['player2'] == @user_id
-    @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_2')
-    RPS.dbi.update_player2_moves(@current_game.first['id'].to_i,'paper')
-    # @match_id
-    # player_2
-    # player_2 move is paper
-    # need player_1 move
+    @player_1_id = RPS.dbi.find_player_1_id(@match_id).first['player1'].to_i
 
+    @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_2')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
+    RPS.dbi.update_player2_moves(@game_id, 'paper')
+    @player_1_move = RPS.dbi.find_player1_move(@game_id).first['player_1_move']
+    # ^^^^^^^^ THIS IS A STRING 
+    if @player_1_move == 'rock'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
+        
+    elsif @player_1_move == 'scissors'
+      RPS.dbi.set_game_winner(@game_id, @player_1_id)
+    elsif @player_1_move == 'paper'
+    
+      RPS.dbi.nullify_player_moves(@game_id) 
+    end
   end
+  #CHECK FOR WINNER
 
   redirect to '/matches'
 end
@@ -196,12 +211,53 @@ get '/scissors/:id' do
   @match_object = RPS.dbi.get_match(@match_id).first
   @user_id = RPS.dbi.get_player_id(session['sesh_example'])
   if @match_object['player1'] == @user_id
+    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
-    RPS.dbi.update_player1_moves(@current_game.first['id'].to_i, 'scissors')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
+    RPS.dbi.update_player1_moves(@game_id, 'scissors')
+    @player_2_move = RPS.dbi.find_player2_move(@game_id).first['player_2_move']
+    # ^^^^^^^^ THIS IS A STRING 
+    if @player_2_move == 'paper'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
+        
+
+    elsif @player_2_move == 'rock'
+      RPS.dbi.set_game_winner(@game_id, @player_2_id)
+    elsif @player_2_move == 'scissors'
+    
+      RPS.dbi.nullify_player_moves(@game_id) 
+
+    end
+
+
+
+
   elsif @match_object['player2'] == @user_id
+    @player_1_id = RPS.dbi.find_player_1_id(@match_id).first['player1'].to_i
+
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_2')
-    RPS.dbi.update_player2_moves(@current_game.first['id'].to_i,'scissors')
+    #THIS IS A PG OBJECT UGH
+    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+
+    RPS.dbi.update_player2_moves(@game_id, 'scissors')
+    @player_1_move = RPS.dbi.find_player1_move(@game_id).first['player_1_move']
+    # ^^^^^^^^ THIS IS A STRING 
+    if @player_1_move == 'paper'
+      RPS.dbi.set_game_winner(@game_id, @user_id)
+        
+    elsif @player_1_move == 'rock'
+      RPS.dbi.set_game_winner(@game_id, @player_1_id)
+    elsif @player_1_move == 'scissors'
+    
+      RPS.dbi.nullify_player_moves(@game_id) 
+
+    end
   end
+  #CHECK FOR WINNER
+
   redirect to '/matches'
 end
 
