@@ -80,14 +80,8 @@ end
 
 get '/rock/:id' do
   @match_id = params[:id]
-  puts 'match_id:'
-  puts @match_id
   @match_object = RPS.dbi.get_match(@match_id).first
-  puts 'match_object:'
-  puts @match_object
   @user_id = RPS.dbi.get_player_id(session['sesh_example'])
-  puts 'user_id'
-  puts @user_id
   if @match_object['player1'] == @user_id
     @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
 
@@ -110,8 +104,8 @@ get '/rock/:id' do
 
       #TRYING TO ERASE BOTH MOVES FROM BOTH PLAYERS!!!!!!!!!
       RPS.dbi.nullify_player_moves(@game_id) 
-
-
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      erb :play
     end
 
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
@@ -320,6 +314,7 @@ get '/scissors/:id' do
 end
 
 get '/signup' do
+  @home = 'js/home.js'
   if session['sesh_example']
     redirect to '/'
   else
@@ -329,13 +324,13 @@ end
 
 post '/signin' do
   sign_in = RPS::SignIn.run(params)
-
   if sign_in[:success?]
     session['sesh_example'] = sign_in[:session_id]
     redirect to '/matches'
   else
+    @home = 'js/home.js'
     flash[:alert] = sign_in[:error]
-    redirect to '/'
+    erb :index
   end
 end
 
@@ -346,8 +341,9 @@ post '/signup' do
     session['sesh_example'] = sign_up[:session_id]
     redirect to '/matches'
   else
+    @home = 'js/home.js'
     flash[:alert] = sign_up[:error]
-    redirect to '/'
+    erb :index
   end 
 
 end
