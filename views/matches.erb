@@ -22,8 +22,8 @@
       <%= erb :pending_matches %>
       <%= erb :invite %>
       <center><button id="showBottom" class="round">Invite a friend to a new game</button></center>
-      <% if flash[:alert] %>
-        <h3><strong><%= flash[:alert].upcase %></strong></h3>
+      <% if flash[:invite] %>
+        <h3><strong><%= flash[:invite].upcase %></strong></h3>
       <% end %>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div id="main-content">
   <div class="row play">
-  <% if @active_user %>
+  <% if !@active_user %>
     <% if flash[:alert] %>
       <h3><strong><%= flash[:alert] %></strong></h3>
     <% end %>

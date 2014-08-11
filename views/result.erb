@@ -1,0 +1,11 @@
+<div id="main-content">
+  <div class="row">
+    <center>
+    <% if @win %>
+      <%= erb :win %>
+    <% else %>
+      <%= erb :lose %>
+    <% end %>
+    </center>
+  </div>
+</div>
