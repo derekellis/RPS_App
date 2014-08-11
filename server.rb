@@ -110,6 +110,11 @@ get '/rock/:id' do
   @user_id = RPS.dbi.get_player_id(session['sesh_example'])
   # these variables are pulling the match hash from the d
 
+    # ============================================================================
+
+    #                                Player 1
+
+    # ============================================================================
 
 
   if @match_object['player1'] == @user_id
@@ -135,6 +140,14 @@ get '/rock/:id' do
 
     @player_2_move = RPS.dbi.find_player2_move(@game_id).first['player_2_move']
     # this method GETS player 2's move for COMPARISON and to determine winner of the match
+
+
+    # ============================================================================
+
+    #                         Compare Moves to determine Winner!
+
+    # ============================================================================
+
 
     if @player_2_move == 'scissors'
       RPS.dbi.set_game_winner(@game_id, @user_id) 
@@ -168,8 +181,13 @@ get '/rock/:id' do
       erb :play
     end
 
+    # ============================================================================
+
+    #                the battle has been won, but what of the war?
 
 
+    #                   Let's Tally and see if the match winner
+    #                            has been determined!
 
     # ===========================================================================
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
@@ -181,6 +199,13 @@ get '/rock/:id' do
     # this variable stores the number of wins for player 2.
 
     # DETERMINING MATCH WINNER (if there is one)
+
+    # ============================================================================
+
+    #                                if someone has won
+    #                               3 games in the match
+
+    # ============================================================================
 
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
@@ -197,6 +222,18 @@ get '/rock/:id' do
 
       # TODO: flash message that the player has won? also update object
     end
+
+
+    # ============================================================================
+
+                  
+
+    # ============================================================================
+
+
+    # ============================================================================
+
+ #                                    Player 2
 
     # ============================================================================
 
