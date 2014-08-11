@@ -47,23 +47,15 @@ post '/matches' do
   end
   @p1 = RPS.dbi.get_player_id(session['sesh_example'])
   @p2 = RPS.dbi.get_player_id(params['invitee'])
-
-  @new_match = RPS.dbi.create_player_match(@p1, @p2)
-
-  5.times {RPS.dbi.create_game(@new_match.first['id'])}
-
-  redirect to '/matches'
+  if @p2
+    @new_match = RPS.dbi.create_player_match(@p1, @p2)
+    5.times {RPS.dbi.create_game(@new_match.first['id'])}
+    redirect to '/matches'
+  else
+    flash[:alert] = 'The player you are trying to invite does not exist'
+    redirect to '/matches'
+  end
 end
-
-# get '/play' do
-#   if !session['sesh_example']
-#     redirect to '/'
-#   end
-#   @audio = 'js/audio.js'
-#   @active_user = true
-#   @current_player = session['sesh_example']
-#   erb :play
-# end
 
 get '/play/:match' do
   if !session['sesh_example']
@@ -105,7 +97,7 @@ get '/rock/:id' do
       #TRYING TO ERASE BOTH MOVES FROM BOTH PLAYERS!!!!!!!!!
       RPS.dbi.nullify_player_moves(@game_id) 
       flash[:alert] = 'TIE! RESETTING GAME...'
-      erb :play
+      redirect to '/play/#{@match_id}'
     end
 
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
@@ -140,6 +132,8 @@ get '/rock/:id' do
     elsif @player_1_move == 'rock'
     
       RPS.dbi.nullify_player_moves(@game_id) 
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}'
 
     end
 
@@ -186,7 +180,8 @@ get '/paper/:id' do
     elsif @player_2_move == 'paper'
     
       RPS.dbi.nullify_player_moves(@game_id) 
-
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}'
     end
 
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
@@ -297,7 +292,9 @@ get '/scissors/:id' do
       RPS.dbi.set_game_winner(@game_id, @player_1_id)
     elsif @player_1_move == 'scissors'
     
-      RPS.dbi.nullify_player_moves(@game_id) 
+      RPS.dbi.nullify_player_moves(@game_id)
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}' 
 
     end
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
