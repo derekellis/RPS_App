@@ -126,10 +126,16 @@ get '/play/:match' do
 
       else
         @active_user = RPS.dbi.get_player_by_id(@user_id).username
+                puts @active_user
+
       end
     else
       @active_user = RPS.dbi.get_player_by_id(@user_id).username
+              puts @active_user
+
     end
+    puts @active_user
+
   end
 
 
@@ -149,9 +155,17 @@ get '/play/:match' do
 
       else
         @active_user = RPS.dbi.get_player_by_id(@user_id).username
+        puts @active_user
+        puts session['sesh_example']
       end
       @active_user = RPS.dbi.get_player_by_id(@user_id).username
+      puts @active_user
+      puts session['sesh_example']
     end
+    # @active_user = RPS.dbi.get_player_by_id(@user_id).username
+    puts @active_user
+    puts session['sesh_example']
+
   end
 
 
@@ -325,7 +339,7 @@ get '/rock/:id' do
 
     # ============================================================================
 
- #                                    Player 2
+    #                                    Player 2
 
     # ============================================================================
 
