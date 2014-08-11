@@ -85,6 +85,14 @@ module RPS
       RPS::User.new(data['username'], data['password'])
     end
 
+
+    def build_match(data)
+
+
+    end
+
+
+
     def get_player_by_username(username)
       result = @db.exec(%Q[
         SELECT * FROM players WHERE username = '#{username}';
@@ -139,6 +147,8 @@ module RPS
       RETURNING id;
       SQL
       @db.exec(create)
+
+      
     end
 
     def get_match(match_id)
@@ -230,6 +240,24 @@ module RPS
         SQL
       end
       @db.exec(result)
+    end
+
+    def validate_single_game_only(match_id, player_string)     
+      if player_string == 'player_1'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id} AND 
+        player_1_move IS NOT NULL
+        ORDER BY id DESC LIMIT 1;        
+        SQL
+      elsif player_string == 'player_2'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id}  AND
+        player_2_move is NOT NULL
+        ORDER BY id DESC LIMIT 1;
+        SQL
+      end
+      @db.exec(result)
+
     end
 
     def update_player1_moves(game_id, move)
