@@ -232,6 +232,24 @@ module RPS
       @db.exec(result)
     end
 
+    def validate_single_game_only(match_id, player_string)     
+      if player_string == 'player_1'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id} AND 
+        player_1_move IS NOT NULL
+        ORDER BY id DESC LIMIT 1;        
+        SQL
+      elsif player_string == 'player_2'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id}  AND
+        player_2_move is NOT NULL
+        ORDER BY id DESC LIMIT 1;
+        SQL
+      end
+      @db.exec(result)
+
+    end
+
     def update_player1_moves(game_id, move)
       update = <<-SQL
       UPDATE games SET 
