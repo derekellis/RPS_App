@@ -15,8 +15,8 @@
       <a href="/scissors/<%= @match_id %>" name="scissors"><img src="<%= @root %>images/scissors.png"></a>
     </div>
   <% else %>
-    <h3>Waiting for <strong><%= @active_user %></strong></h3>
-
+    <h3>Waiting for <strong>@active_user</strong></h3>
+    <img src="<%= @root %>images/404.png">
   <% end %>
   </div>
 </div>

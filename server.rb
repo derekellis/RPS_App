@@ -61,7 +61,7 @@ post '/matches' do
   end
   @p1 = RPS.dbi.get_player_id(session['sesh_example'])
   @p2 = RPS.dbi.get_player_id(params['invitee'])
-
+  if @p2
   # p1 is always the player sending the invite
   # p2 is always the player receiving the invite
   # this does not change their position in the table
@@ -80,6 +80,10 @@ post '/matches' do
   #TODO: create game objects here with create_game method
 
   redirect to '/matches'
+  else
+    flash[:alert] = 'The player you are trying to invite does not exist'
+    redirect to '/matches'
+  end
 end
 
 
@@ -152,7 +156,6 @@ get '/play/:match' do
          #---REFUSE ENTRY---x
          #---REDIRECT? TO MATCHES?----
 
-
       else
         @active_user = RPS.dbi.get_player_by_id(@user_id).username
         puts @active_user
@@ -168,26 +171,9 @@ get '/play/:match' do
 
   end
 
-
-
-
-
   # @ need to know match we are in 
 
   # need most recent game
- 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   # if !(LOGIC ABOUT CHECKING IF BOTH MOVES IN A PERVIOUS GAME
@@ -225,6 +211,7 @@ get '/rock/:id' do
 
   if @match_object['player1'] == @user_id
     # THIS routes the server to the player 1 sequence
+    
     
 
     @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
@@ -283,6 +270,7 @@ get '/rock/:id' do
 
 
       flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}'
       # alerts user of the tie
       erb :play
     end
@@ -332,7 +320,7 @@ get '/rock/:id' do
 
     # ============================================================================
 
-                  
+
 
     # ============================================================================
 
@@ -363,6 +351,8 @@ get '/rock/:id' do
     elsif @player_1_move == 'rock'
     
       RPS.dbi.nullify_player_moves(@game_id) 
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}'
 
     end
 
@@ -409,7 +399,8 @@ get '/paper/:id' do
     elsif @player_2_move == 'paper'
     
       RPS.dbi.nullify_player_moves(@game_id) 
-
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}'
     end
 
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
@@ -520,7 +511,9 @@ get '/scissors/:id' do
       RPS.dbi.set_game_winner(@game_id, @player_1_id)
     elsif @player_1_move == 'scissors'
     
-      RPS.dbi.nullify_player_moves(@game_id) 
+      RPS.dbi.nullify_player_moves(@game_id)
+      flash[:alert] = 'TIE! RESETTING GAME...'
+      redirect to '/play/#{@match_id}' 
 
     end
     @count_wins = RPS.dbi.count_match_winner(@match_id, @user_id).count
