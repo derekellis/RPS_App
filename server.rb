@@ -88,8 +88,101 @@ get '/play/:match' do
   if !session['sesh_example']
     redirect to '/'
   end
+  @moves = ['rock', 'paper', 'scissors']
+  @match_id = params[:match]
+  @match_object = RPS.dbi.get_match(@match_id).first
+  @user_id = RPS.dbi.get_player_id(session['sesh_example'])
+  # @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
+
+  # @need to know if player 1 or player 2
+
+
+  # if @match_object['player1'] == @user_id
+  #   if RPS.dbi.get_most_recent_game(match_id, 'player2')
+  #   if @player_2_move = RPS.dbi.find_player2_move(@game_id)
+  #     .first['player_2_move'] == NULL
+  #                    ERROR FLASH
+  #   
+  #
+  if @match_object['player1'] == @user_id
+    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+    # player_1
+
+    # I AM PLAYER 1
+    # I CANNOT PLAY
+    # IF I HAVE ALREADY PLAYED
+    # AND PLAYER 2 HAS NOT
+    @latest_move_string = RPS.dbi.validate_single_game_only(@match_id, 'player_1')
+    if @latest_move_string.first != nil 
+      puts @latest_move_string.first['player_2_move']
+      if !(@moves.include?(@latest_move_string.first['player_2_move']))
+        @active_user = RPS.dbi.get_player_by_id(@player_2_id).username
+
+
+         #---flash[:alert] = "Please wait for the other player to play their move."---
+         #---REFUSE ENTRY---x
+         #---REDIRECT? TO MATCHES?----
+
+
+      else
+        @active_user = RPS.dbi.get_player_by_id(@user_id).username
+      end
+    else
+      @active_user = RPS.dbi.get_player_by_id(@user_id).username
+    end
+  end
+
+
+  if @match_object['player2'] == @user_id
+    @player_1_id = RPS.dbi.find_player_1_id(@match_id).first['player1'].to_i
+    @latest_move_string = RPS.dbi.validate_single_game_only(@match_id, 'player_2')
+    if @latest_move_string.first != nil 
+      puts @latest_move_string.first['player_1_move']
+      if !(@moves.include?(@latest_move_string.first['player_1_move']))
+        @active_user = RPS.dbi.get_player_by_id(@player_1_id).username
+
+
+         #---flash[:alert] = "Please wait for the other player to play their move."---
+         #---REFUSE ENTRY---x
+         #---REDIRECT? TO MATCHES?----
+
+
+      else
+        @active_user = RPS.dbi.get_player_by_id(@user_id).username
+      end
+      @active_user = RPS.dbi.get_player_by_id(@user_id).username
+    end
+  end
+
+
+
+
+
+  # @ need to know match we are in 
+
+  # need most recent game
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # if !(LOGIC ABOUT CHECKING IF BOTH MOVES IN A PERVIOUS GAME
+  #     HAVE BEEN PLAYED /  if current user has made a move???)
+  #   redirect to '/matches'
+  #   alert that it is not their turn
+  # end
+
   @audio = 'js/audio.js'
-  @active_user = true
   @match_id = params[:match]
   @match_object = RPS.dbi.get_match(@match_id).first
   RPS.dbi.update_match_status(@match_id, "active")
@@ -99,7 +192,6 @@ end
 
 get '/rock/:id' do
   @match_id = params[:id]
-  
   #pulls match id from integer value at the end of the URL
 
   @match_object = RPS.dbi.get_match(@match_id).first
