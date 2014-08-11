@@ -192,21 +192,21 @@ module RPS
 
     def active_matches(user_id)
       select = <<-SQL
-      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'active';
+      SELECT * FROM matches WHERE (player1 = #{user_id} OR player2 = #{user_id}) AND status = 'active';
       SQL
       @db.exec(select)
     end
 
     def pending_matches(user_id)
       select = <<-SQL
-      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'pending';
+      SELECT * FROM matches WHERE (player1 = #{user_id} OR player2 = #{user_id}) AND status = 'pending';
       SQL
       @db.exec(select)
     end
 
     def completed_matches(user_id)
       select = <<-SQL
-      SELECT * FROM matches WHERE player1 = #{user_id} OR player2 = #{user_id} AND status = 'completed';
+      SELECT * FROM matches WHERE (player1 = #{user_id} OR player2 = #{user_id}) AND status = 'completed';
       SQL
       @db.exec(select)
     end
