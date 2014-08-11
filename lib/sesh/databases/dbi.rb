@@ -242,6 +242,42 @@ module RPS
       @db.exec(result)
     end
 
+##############################################################
+######## Check if game before is both played  ################
+
+    def get_second_most_recent_game(match_id, player_string)     
+      if player_string == 'player_1'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id} AND 
+        player_1_move IS NULL
+        ORDER BY id DESC LIMIT 2;        
+        SQL
+      elsif player_string == 'player_2'
+        result = <<-SQL
+        SELECT id FROM games WHERE match_id = #{match_id}  AND
+        player_2_move is NULL
+        ORDER BY id DESC LIMIT 2;
+        SQL
+      end
+      @db.exec(result) # .last
+    end
+
+#############################################################
+######## Check if game before is both empty #################
+############ First game and post-tie ########################
+
+    def validate_empty_previous_game(match_id)
+      result = <<-SQL
+      SELECT id FROM games WHERE match_id = #{match_id} AND 
+      player_1_move IS NULL AND player_2_move IS NULL
+      ORDER BY id DESC LIMIT 1;        
+      SQL
+      @db.exec(result)
+    end
+
+#############################################################
+########## Early attempt at game-order validation ###########
+
     def validate_single_game_only(match_id, player_string)     
       if player_string == 'player_1'
         result = <<-SQL
@@ -257,8 +293,10 @@ module RPS
         SQL
       end
       @db.exec(result)
-
     end
+    
+############################################################
+
 
     def update_player1_moves(game_id, move)
       update = <<-SQL
