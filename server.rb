@@ -120,6 +120,7 @@ get '/rock/:id' do
   if @match_object['player1'] == @user_id
     # THIS routes the server to the player 1 sequence
     
+    
 
     @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
     # THIS CHOOSES PLAYER 2 FROM THE DATABASE
@@ -226,7 +227,7 @@ get '/rock/:id' do
 
     # ============================================================================
 
-                  
+
 
     # ============================================================================
 
