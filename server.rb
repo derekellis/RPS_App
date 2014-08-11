@@ -38,7 +38,14 @@ get '/matches' do
   @completed_matches = RPS.dbi.completed_matches(@id).sort {|a,b| a['id'].to_i <=> b['id'].to_i}
   @all_players = RPS.dbi.get_all_players(@id)
   @current_player = RPS.dbi.get_player_by_id(@id).username
+  
+
+  #this builds the tables for the player to view their matches
+  #TODO: 
+
   erb :matches
+
+
 end
 
 post '/matches' do
@@ -48,22 +55,27 @@ post '/matches' do
   @p1 = RPS.dbi.get_player_id(session['sesh_example'])
   @p2 = RPS.dbi.get_player_id(params['invitee'])
 
+  # p1 is always the player sending the invite
+  # p2 is always the player receiving the invite
+  # this does not change their position in the table
+  # when the player signs up, they receive a permanent id position in the table
+
   @new_match = RPS.dbi.create_player_match(@p1, @p2)
 
+  # this initiates a new match
+  # TODO: create match object here with the create_player_match DBI method? discuss.
+
+
+
   5.times {RPS.dbi.create_game(@new_match.first['id'])}
+
+  #this populates the games table with 5 games all holding the same match ID generated from creating player match
+  #TODO: create game objects here with create_game method
 
   redirect to '/matches'
 end
 
-# get '/play' do
-#   if !session['sesh_example']
-#     redirect to '/'
-#   end
-#   @audio = 'js/audio.js'
-#   @active_user = true
-#   @current_player = session['sesh_example']
-#   erb :play
-# end
+
 
 get '/play/:match' do
   if !session['sesh_example']
@@ -80,16 +92,39 @@ end
 
 get '/rock/:id' do
   @match_id = params[:id]
-  @match_object = RPS.dbi.get_match(@match_id).first
-  @user_id = RPS.dbi.get_player_id(session['sesh_example'])
-  if @match_object['player1'] == @user_id
-    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+  
+  #pulls match id from integer value at the end of the URL
 
+  @match_object = RPS.dbi.get_match(@match_id).first
+
+  # pulls match hash from the database
+
+
+  @user_id = RPS.dbi.get_player_id(session['sesh_example'])
+  # these variables are pulling the match hash from the d
+
+
+
+  if @match_object['player1'] == @user_id
+    # THIS routes the server to the player 1 sequence
+    
+
+    @player_2_id = RPS.dbi.find_player2_id(@match_id).first['player2'].to_i
+    # THIS CHOOSES PLAYER 2 FROM THE DATABASE
     @current_game = RPS.dbi.get_most_recent_game(@match_id, 'player_1')
-    #THIS IS A PG OBJECT UGH
-    @game_id = @current_game.first['id'].to_i #THIS IS AN INTEGER
+    # This pulls the most recent game from the DBI. get_most_recent_game only checks player_1_moves from 
+    # the DBI and returns the most recent game with no player_1_move
+
+    @game_id = @current_game.first['id'].to_i 
+    # THIS is a temporary workaround that just takes the @current_game array, grabs the hash, access value for key 'id'
+    # and converts to_i
+
+
+    #TODO:    clunky code, clean up
 
     RPS.dbi.update_player1_moves(@game_id, 'rock')
+
+    
     @player_2_move = RPS.dbi.find_player2_move(@game_id).first['player_2_move']
     # ^^^^^^^^ THIS IS A STRING 
     if @player_2_move == 'scissors'
