@@ -85,6 +85,14 @@ module RPS
       RPS::User.new(data['username'], data['password'])
     end
 
+
+    def build_match(data)
+
+
+    end
+
+
+
     def get_player_by_username(username)
       result = @db.exec(%Q[
         SELECT * FROM players WHERE username = '#{username}';
@@ -139,6 +147,8 @@ module RPS
       RETURNING id;
       SQL
       @db.exec(create)
+
+      
     end
 
     def get_match(match_id)
