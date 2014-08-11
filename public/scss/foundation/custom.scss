@@ -52,6 +52,7 @@ MATCHES
 .match-table table {
   width: 100%;
   background: none!important;
+  border: none;
 }
 .match-table table tr:nth-child(odd){
   background: #FCF1EB;
@@ -65,14 +66,34 @@ MATCHES
 .match-table .entypo-right-circled {
   font-size: 2em;
 }
+.match-table table tr:hover {
+  background: rgba(0,0,0,.5);
+  & td {
+    color: white;
+  }
+}
 .tabs.vertical {
   margin-top: 4rem;
+  background: rgb(156, 36, 36);
+  box-shadow: inset 0px 0px 7px #ccc;
 }
 .tabs.vertical a {
   padding: .45rem 2rem!important;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 80%;
+  color: #ccc;
+}
+li.tab-title, .tab-title a {
+  transition: all .5s ease-in-out; 
+}
+li.tab-title.active {
+  box-shadow: 0 0 4px #444;
+}
+.tab-title.active a {
+  background: #b70817;
+  color: white;
+  text-shadow: 1px 1px 2px #333;
 }
 .autocomplete-suggestions {
   background: #fff;

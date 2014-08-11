@@ -55,6 +55,13 @@ get '/matches' do
 
 end
 
+get '/result/:result' do
+  if params[:result] == 'win'
+    @win = true
+  end
+  erb :result
+end
+
 post '/matches' do
   if !session['sesh_example']
     redirect to '/'
@@ -81,7 +88,7 @@ post '/matches' do
 
   redirect to '/matches'
   else
-    flash[:alert] = 'The player you are trying to invite does not exist'
+    flash[:invite] = 'The player you are trying to invite does not exist'
     redirect to '/matches'
   end
 end
@@ -120,7 +127,7 @@ get '/play/:match' do
     if @latest_move_string.first != nil 
       puts @latest_move_string.first['player_2_move']
       if !(@moves.include?(@latest_move_string.first['player_2_move']))
-        @active_user = RPS.dbi.get_player_by_id(@player_2_id).username
+        #@active_user = RPS.dbi.get_player_by_id(@player_2_id).username
 
 
          #---flash[:alert] = "Please wait for the other player to play their move."---
@@ -136,7 +143,6 @@ get '/play/:match' do
     else
       @active_user = RPS.dbi.get_player_by_id(@user_id).username
               puts @active_user
-
     end
     puts @active_user
 
@@ -149,7 +155,7 @@ get '/play/:match' do
     if @latest_move_string.first != nil 
       puts @latest_move_string.first['player_1_move']
       if !(@moves.include?(@latest_move_string.first['player_1_move']))
-        @active_user = RPS.dbi.get_player_by_id(@player_1_id).username
+        #@active_user = RPS.dbi.get_player_by_id(@player_1_id).username
 
 
          #---flash[:alert] = "Please wait for the other player to play their move."---
@@ -157,13 +163,9 @@ get '/play/:match' do
          #---REDIRECT? TO MATCHES?----
 
       else
-        @active_user = RPS.dbi.get_player_by_id(@user_id).username
-        puts @active_user
-        puts session['sesh_example']
+        #@active_user = RPS.dbi.get_player_by_id(@user_id).username
       end
-      @active_user = RPS.dbi.get_player_by_id(@user_id).username
-      puts @active_user
-      puts session['sesh_example']
+      #@active_user = RPS.dbi.get_player_by_id(@user_id).username
     end
     # @active_user = RPS.dbi.get_player_by_id(@user_id).username
     puts @active_user
@@ -304,14 +306,14 @@ get '/rock/:id' do
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
       RPS.dbi.update_match_status(@match_id, "completed")
-
+      redirect to '/result/win'
       # this route sets match winner, updates status to completed
 
       # TODO: flash message that the player has won? also update object
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_2_id)
       RPS.dbi.update_match_status(@match_id, "completed")
-
+      redirect to '/result/lose'
       # this route sets match winner, updates status to completed
 
       # TODO: flash message that the player has won? also update object
@@ -361,10 +363,11 @@ get '/rock/:id' do
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
       RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/win'
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_1_id)
       RPS.dbi.update_match_status(@match_id, "completed")
-
+      redirect to '/result/lose'
     end
 
 
@@ -407,8 +410,12 @@ get '/paper/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/win'
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_2_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/lose'
     end
 
 
@@ -449,8 +456,12 @@ get '/paper/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/win'
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_1_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/lose'
     end
   end
   #CHECK FOR WINNER
@@ -487,8 +498,12 @@ get '/scissors/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_2_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/win'
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_2_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/lose'
     end
 
 
@@ -520,8 +535,12 @@ get '/scissors/:id' do
     @opposing_wins = RPS.dbi.count_match_winner(@match_id, @player_1_id).count
     if @count_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @user_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/win'
     elsif @opposing_wins >= 3
       RPS.dbi.set_match_winner(@match_id, @player_1_id)
+      RPS.dbi.update_match_status(@match_id, "completed")
+      redirect to '/result/lose'
     end
   end
   #CHECK FOR WINNER

@@ -1,6 +1,6 @@
 <div id="invites" class="content">
   <h2>Invites</h2>
-    <% if @pending_matches %>
+    <% if @pending_matches.first %>
     <% count = 1 %>
     <table>
       <tr>
@@ -12,7 +12,6 @@
     <% @pending_matches.each do |match| %>
       <% if @current_player != RPS.dbi.get_player_by_id(match['player1']).username %>
       <tr>
-      <% if match['status'] == 'pending' %>
         <td><a href="/play/<%= match['id'] %>"><span class="entypo-right-circled"></span></a></td>
         <td><%= count %></td>
         <td>
@@ -25,7 +24,6 @@
         <% count += 1 %>
       <% end %>
       </tr>
-      <% end %>
     <% end %>
     </table>
   <% else %>
