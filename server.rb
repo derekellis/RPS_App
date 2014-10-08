@@ -15,7 +15,7 @@ use Rack::Flash
 # layouts
 
 before do
-  @root = 'http://10.10.10.10:4567/'
+  @root = 'http://rps-mockathon.herokuapp.com/'
 end
 
 get '/' do
