@@ -5,7 +5,7 @@ module RPS
   class DBI
     attr_reader :db
     def initialize
-      @db = PG.connect(host: 'localhost', dbname: 'rock_paper_scissors')
+      @db = PG.connect(host: 'ec2-54-204-35-132.compute-1.amazonaws.com', dbname: 'd3jvo7i78hc780')
 
       players = %q[
         CREATE TABLE IF NOT EXISTS players(
